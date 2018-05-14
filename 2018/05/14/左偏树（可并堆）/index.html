@@ -8,7 +8,7 @@
   <meta name="description" content="">
   <meta name="author" content="high-cold">
   <!-- Open Graph Data -->
-  <meta property="og:title" content="可持久化线段树（主席树）"/>
+  <meta property="og:title" content="左偏树（可并堆）"/>
   <meta property="og:description" content="" />
   <meta property="og:site_name" content="High-Cold"/>
   <meta property="og:type" content="article" />
@@ -60,7 +60,7 @@
     <div class="row">
       <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
         <div class="page-title with-background-image">
-          <p class="title">可持久化线段树（主席树）</p>
+          <p class="title">左偏树（可并堆）</p>
           <p class="subtitle"></p>
         </div>
         <div class="site-menu with-background-image">
@@ -116,7 +116,7 @@
           
           <!-- Date -->
           <span class="date-time info">On
-            <span class="date">05/12/18</span>
+            <span class="date">05/14/18</span>
             <span class="time">19:21:12</span>
           </span>
           
@@ -182,6 +182,8 @@ int max(int x,int y){return x&gt;y?x:y;}
 
 int min(int x,int y){return x&lt;y?x:y;}
 
+void swap(int &amp;x,int &amp;y){int d=x;x=y;y=d;}
+
 int read()
 {
     int x=0,f=1;char ch=getchar();
@@ -195,71 +197,62 @@ void write(int x)
     int buf[50];
     if (x&lt;0) putchar(&apos;-&apos;),x=-x;
     buf[0]=0;
-    while (x) buf[++buf[0]]=x%10,x/=10;
+    while (x) buf[++buf[0]]=x%10,x/=10; 
     if (!buf[0]) buf[0]=1,buf[1]=0;
     while (buf[0]) putchar(&apos;0&apos;+buf[buf[0]--]);
 }
 
-struct node
+int fa[100100],dist[100100],Left[100100],Right[100100],key[100100];
+
+int find(int x)
 {
-    int l,r,sum;
-}t[20002000];
-
-int a[500500],b[500500],n,m,id=0,cnt,root[500500];
-
-int li(int x){return lower_bound(a+1,a+cnt+1,x)-a;}
-
-inline void build(int x,int l,int r)
-{
-    if (l==r) 
-    {
-        t[x].l=t[x].r=-1;
-        t[x].sum=0;
-        return ;
-    }
-    int mid=l+r&gt;&gt;1;
-    t[x].l=++id;t[x].r=++id;
-    build(t[x].l,l,mid);
-    build(t[x].r,mid+1,r);
+    return fa[x]?find(fa[x]):x;
 }
 
-inline int add(int x,int l,int r,int to)
+int merge(int x,int y)
 {
-    int now=++id;
-    t[now].l=t[x].l;t[now].r=t[x].r;t[now].sum=t[x].sum+1;
-    if (l&lt;r)
-    {
-        int mid=l+r&gt;&gt;1;
-        if (mid&gt;=to) t[now].l=add(t[x].l,l,mid,to);
-        else t[now].r=add(t[x].r,mid+1,r,to);
-    }
-    return now;
+    if (x==0) return y;
+    if (y==0) return x;
+    if (key[y]&lt;key[x]||(key[x]==key[y]&amp;&amp;x&gt;y)) swap(x,y);
+    int &amp;l=Left[x],&amp;r=Right[x];
+    r=merge(r,y);
+    fa[r]=x;
+    if (dist[r]&gt;dist[l]) swap(l,r);
+    dist[x]=dist[r]+1;
 }
 
-inline int query(int u,int v,int l,int r,int k)
+void Delete(int x)
 {
-    if (l==r) return l;
-    int x=t[t[v].l].sum-t[t[u].l].sum;
-    int mid=l+r&gt;&gt;1;
-    if (x&lt;k) return query(t[u].r,t[v].r,mid+1,r,k-x);
-    else return query(t[u].l,t[v].l,l,mid,k);
+    key[x]=-1;
+    fa[Right[x]]=fa[Left[x]]=0;
+    merge(Left[x],Right[x]);
 }
 
 int main(){
-    n=read(),m=read();
-    for (register int i=1;i&lt;=n;i++) a[i]=b[i]=read();
-    sort(a+1,a+n+1);
-    cnt=unique(a+1,a+n+1)-a-1;
-    build(++id,1,cnt);
-    root[0]=1;
-    for (register int i=1;i&lt;=n;i++)
+    int n=read(),m=read();
+    dist[0]=-1;
+    for (int i=1;i&lt;=n;i++) key[i]=read();
+    while (233333&amp;&amp;m--)
     {
-        root[i]=add(root[i-1],1,cnt,li(b[i]));
-    }
-    while (m--)
-    {
-        int q=read(),w=read(),e=read();
-        printf(&quot;%d\n&quot;,a[query(root[q-1],root[w],1,cnt,e)]);
+        int q=read();
+        if (q==1)
+        {
+            int x=read(),y=read();
+            if (key[x]==-1||key[y]==-1) continue;
+            x=find(x),y=find(y);
+            if (x!=y) merge(x,y);
+        }
+        if (q==2)
+        {
+            int x=read();
+            if (key[x]==-1) printf(&quot;-1\n&quot;);
+            else 
+            {
+                x=find(x);
+                printf(&quot;%d\n&quot;,key[x]);
+                Delete(x);
+            }
+        }
     }
     return 0;
 }

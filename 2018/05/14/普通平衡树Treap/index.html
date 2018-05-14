@@ -8,7 +8,7 @@
   <meta name="description" content="">
   <meta name="author" content="high-cold">
   <!-- Open Graph Data -->
-  <meta property="og:title" content="可持久化线段树（主席树）"/>
+  <meta property="og:title" content="普通平衡树Treap"/>
   <meta property="og:description" content="" />
   <meta property="og:site_name" content="High-Cold"/>
   <meta property="og:type" content="article" />
@@ -60,7 +60,7 @@
     <div class="row">
       <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
         <div class="page-title with-background-image">
-          <p class="title">可持久化线段树（主席树）</p>
+          <p class="title">普通平衡树Treap</p>
           <p class="subtitle"></p>
         </div>
         <div class="site-menu with-background-image">
@@ -116,7 +116,7 @@
           
           <!-- Date -->
           <span class="date-time info">On
-            <span class="date">05/12/18</span>
+            <span class="date">05/14/18</span>
             <span class="time">19:21:12</span>
           </span>
           
@@ -144,7 +144,6 @@
 #define fro for
 #define ll long long
 #define reg register
-#define inf 1234567890
 /*#include &lt;bitset&gt; //STL位集容器
 #include &lt;cstype&gt; //字符处理
 #include &lt;cerrno&gt; //定义错误码
@@ -178,20 +177,22 @@ using namespace std;
 
 int ans;
 
-int max(int x,int y){return x&gt;y?x:y;}
+int max(int x,int y){
+    return x&gt;y?x:y;
+}
 
-int min(int x,int y){return x&lt;y?x:y;}
+int min(int x,int y){
+    return x&lt;y?x:y;
+}
 
-int read()
-{
+int read(){
     int x=0,f=1;char ch=getchar();
     while (ch&lt;&apos;0&apos; || ch&gt;&apos;9&apos;){if (ch==&apos;-&apos;)f=-1;ch=getchar();}
-    while (&apos;0&apos;&lt;=ch &amp;&amp; ch&lt;=&apos;9&apos;){x=x*10+(ch^48);ch=getchar();}
+    while (&apos;0&apos;&lt;=ch &amp;&amp; ch&lt;=&apos;9&apos;){x=(x&lt;&lt;3)+(x&lt;&lt;1)+(ch^48);ch=getchar();}
     return x*f;
 }
 
-void write(int x)
-{
+void write(int x){
     int buf[50];
     if (x&lt;0) putchar(&apos;-&apos;),x=-x;
     buf[0]=0;
@@ -200,66 +201,157 @@ void write(int x)
     while (buf[0]) putchar(&apos;0&apos;+buf[buf[0]--]);
 }
 
-struct node
+struct p
 {
-    int l,r,sum;
-}t[20002000];
+    int l,r,num,rank,value,weight;
+} a[101010];
 
-int a[500500],b[500500],n,m,id=0,cnt,root[500500];
-
-int li(int x){return lower_bound(a+1,a+cnt+1,x)-a;}
-
-inline void build(int x,int l,int r)
+void tl(int &amp;root)
 {
-    if (l==r) 
+    int tmp=a[root].r;
+    a[root].r=a[tmp].l;
+    a[tmp].l=root;
+    a[tmp].num=a[root].num;
+    a[root].num=a[a[root].l].num+a[a[root].r].num+a[root].weight;
+    root=tmp;
+}
+
+void tr(int &amp;root)
+{
+    int tmp=a[root].l;
+    a[root].l=a[tmp].r;
+    a[tmp].r=root;
+    a[tmp].num=a[root].num;
+    a[root].num=a[a[root].l].num+a[a[root].r].num+a[root].weight;
+    root=tmp;
+}
+
+int cnt=0;
+
+void Insert(int &amp;root,int x)
+{
+    if (root==0)
     {
-        t[x].l=t[x].r=-1;
-        t[x].sum=0;
+        a[++cnt].value=x,a[cnt].num=1,a[cnt].weight=1;
+        root=cnt;
+        a[cnt].rank=(rand()%1234)*(rand()%1234);
         return ;
     }
-    int mid=l+r&gt;&gt;1;
-    t[x].l=++id;t[x].r=++id;
-    build(t[x].l,l,mid);
-    build(t[x].r,mid+1,r);
-}
 
-inline int add(int x,int l,int r,int to)
-{
-    int now=++id;
-    t[now].l=t[x].l;t[now].r=t[x].r;t[now].sum=t[x].sum+1;
-    if (l&lt;r)
+    a[root].num++;
+    if (a[root].value==x) a[root].weight++;
+
+    if (a[root].value&gt;x) 
     {
-        int mid=l+r&gt;&gt;1;
-        if (mid&gt;=to) t[now].l=add(t[x].l,l,mid,to);
-        else t[now].r=add(t[x].r,mid+1,r,to);
+        Insert(a[root].l,x);
+        if (a[a[root].l].rank&lt;a[root].rank) tr(root);
     }
-    return now;
+
+    else
+
+    if (a[root].value&lt;x) 
+    {
+        Insert(a[root].r,x);
+        if (a[a[root].r].rank&lt;a[root].rank) tl(root);
+    }
 }
 
-inline int query(int u,int v,int l,int r,int k)
+void Delete(int &amp;root,int x)
 {
-    if (l==r) return l;
-    int x=t[t[v].l].sum-t[t[u].l].sum;
-    int mid=l+r&gt;&gt;1;
-    if (x&lt;k) return query(t[u].r,t[v].r,mid+1,r,k-x);
-    else return query(t[u].l,t[v].l,l,mid,k);
+    if (root==0) return ;
+
+    if (a[root].value==x)
+    {
+        if (a[root].weight&gt;1) 
+        {
+            a[root].weight--;
+            a[root].num--;
+            return ;
+        }
+
+        if (a[root].l*a[root].r==0) root=a[root].l+a[root].r;
+        else 
+        if (a[a[root].l].rank&lt;a[a[root].r].rank) tr(root),Delete(root,x);
+        else tl(root),Delete(root,x);
+    }
+
+    else
+
+    if (a[root].value&lt;x) a[root].num--,Delete(a[root].r,x);
+
+    else
+
+    if (a[root].value&gt;x) a[root].num--,Delete(a[root].l,x);
+}
+
+int Asknum(int root,int x)
+{
+    if (root==0) return 0;
+
+    if (a[root].value&lt;x) return Asknum(a[root].r,x)+a[a[root].l].num+a[root].weight;
+
+    if (a[root].value==x) return a[a[root].l].num+1;
+
+    if (a[root].value&gt;x) return Asknum(a[root].l,x);
+}
+
+int Askdin(int root,int x)
+{
+    if (root==0) return 0;
+
+    if (a[a[root].l].num&gt;=x) return Askdin(a[root].l,x);
+
+    if (a[a[root].l].num+a[root].weight&lt;x) return Askdin(a[root].r,x-a[a[root].l].num-a[root].weight);
+
+    return a[root].value;
+}
+
+void Askqia(int root,int x)
+{
+    if (root==0) return ;
+
+    if (a[root].value&lt;x)
+    {
+        ans=root;
+        Askqia(a[root].r,x);
+    }
+    else Askqia(a[root].l,x);
+}
+
+void Askhou(int root,int x)
+{
+    if (root==0) return;
+
+    if (a[root].value&gt;x)
+    {
+        ans=root;
+        Askhou(a[root].l,x);
+    }
+    else Askhou(a[root].r,x);
 }
 
 int main(){
-    n=read(),m=read();
-    for (register int i=1;i&lt;=n;i++) a[i]=b[i]=read();
-    sort(a+1,a+n+1);
-    cnt=unique(a+1,a+n+1)-a-1;
-    build(++id,1,cnt);
-    root[0]=1;
-    for (register int i=1;i&lt;=n;i++)
+    int n=read();
+    int root=0;
+    srand(2333);
+    for (int i=1;i&lt;=n;i++)
     {
-        root[i]=add(root[i-1],1,cnt,li(b[i]));
-    }
-    while (m--)
-    {
-        int q=read(),w=read(),e=read();
-        printf(&quot;%d\n&quot;,a[query(root[q-1],root[w],1,cnt,e)]);
+        int op,x;
+        scanf(&quot;%d%d&quot;,&amp;op,&amp;x);
+        switch(op)
+        {
+            case 1:Insert(root,x);break;
+
+            case 2:Delete(root,x);break;
+
+            case 3:printf(&quot;%d\n&quot;,Asknum(root,x));break;
+
+            case 4:printf(&quot;%d\n&quot;,Askdin(root,x));break;
+
+            case 5:ans=0,Askqia(root,x),printf(&quot;%d\n&quot;,a[ans].value);break;
+
+            case 6:ans=0,Askhou(root,x),printf(&quot;%d\n&quot;,a[ans].value);break;
+        }
     }
     return 0;
 }

@@ -8,7 +8,7 @@
   <meta name="description" content="">
   <meta name="author" content="high-cold">
   <!-- Open Graph Data -->
-  <meta property="og:title" content="可持久化线段树（主席树）"/>
+  <meta property="og:title" content="最小生成树"/>
   <meta property="og:description" content="" />
   <meta property="og:site_name" content="High-Cold"/>
   <meta property="og:type" content="article" />
@@ -60,7 +60,7 @@
     <div class="row">
       <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
         <div class="page-title with-background-image">
-          <p class="title">可持久化线段树（主席树）</p>
+          <p class="title">最小生成树</p>
           <p class="subtitle"></p>
         </div>
         <div class="site-menu with-background-image">
@@ -116,7 +116,7 @@
           
           <!-- Date -->
           <span class="date-time info">On
-            <span class="date">05/12/18</span>
+            <span class="date">05/14/18</span>
             <span class="time">19:21:12</span>
           </span>
           
@@ -142,9 +142,6 @@
 #include &lt;ctime&gt; //定义关于时间的函数
 #define itn int
 #define fro for
-#define ll long long
-#define reg register
-#define inf 1234567890
 /*#include &lt;bitset&gt; //STL位集容器
 #include &lt;cstype&gt; //字符处理
 #include &lt;cerrno&gt; //定义错误码
@@ -178,20 +175,22 @@ using namespace std;
 
 int ans;
 
-int max(int x,int y){return x&gt;y?x:y;}
+int max(int x,int y){
+    return x&gt;y?x:y;
+}
 
-int min(int x,int y){return x&lt;y?x:y;}
+int min(int x,int y){
+    return x&lt;y?x:y;
+}
 
-int read()
-{
+int read(){
     int x=0,f=1;char ch=getchar();
     while (ch&lt;&apos;0&apos; || ch&gt;&apos;9&apos;){if (ch==&apos;-&apos;)f=-1;ch=getchar();}
-    while (&apos;0&apos;&lt;=ch &amp;&amp; ch&lt;=&apos;9&apos;){x=x*10+(ch^48);ch=getchar();}
+    while (&apos;0&apos;&lt;=ch &amp;&amp; ch&lt;=&apos;9&apos;){x=(x&lt;&lt;3)+(x&lt;&lt;1)+(ch^48);ch=getchar();}
     return x*f;
 }
 
-void write(int x)
-{
+void write(int x){
     int buf[50];
     if (x&lt;0) putchar(&apos;-&apos;),x=-x;
     buf[0]=0;
@@ -200,67 +199,41 @@ void write(int x)
     while (buf[0]) putchar(&apos;0&apos;+buf[buf[0]--]);
 }
 
-struct node
-{
-    int l,r,sum;
-}t[20002000];
+struct p{
+    int x,y,w;
+}a[404040];
 
-int a[500500],b[500500],n,m,id=0,cnt,root[500500];
+int fa[5050];
 
-int li(int x){return lower_bound(a+1,a+cnt+1,x)-a;}
-
-inline void build(int x,int l,int r)
-{
-    if (l==r) 
-    {
-        t[x].l=t[x].r=-1;
-        t[x].sum=0;
-        return ;
-    }
-    int mid=l+r&gt;&gt;1;
-    t[x].l=++id;t[x].r=++id;
-    build(t[x].l,l,mid);
-    build(t[x].r,mid+1,r);
+bool cmp(p x,p y){
+    if(x.w&lt;y.w)return 1;
+    if(x.w==y.w)
+        if(x.x&gt;y.x)return 1;
+    return 0;
 }
 
-inline int add(int x,int l,int r,int to)
-{
-    int now=++id;
-    t[now].l=t[x].l;t[now].r=t[x].r;t[now].sum=t[x].sum+1;
-    if (l&lt;r)
-    {
-        int mid=l+r&gt;&gt;1;
-        if (mid&gt;=to) t[now].l=add(t[x].l,l,mid,to);
-        else t[now].r=add(t[x].r,mid+1,r,to);
-    }
-    return now;
+int findx(int x){
+    if(x==fa[x])return x;
+    fa[x]=findx(fa[x]);
+    return fa[x];
 }
 
-inline int query(int u,int v,int l,int r,int k)
-{
-    if (l==r) return l;
-    int x=t[t[v].l].sum-t[t[u].l].sum;
-    int mid=l+r&gt;&gt;1;
-    if (x&lt;k) return query(t[u].r,t[v].r,mid+1,r,k-x);
-    else return query(t[u].l,t[v].l,l,mid,k);
-}
 
 int main(){
-    n=read(),m=read();
-    for (register int i=1;i&lt;=n;i++) a[i]=b[i]=read();
-    sort(a+1,a+n+1);
-    cnt=unique(a+1,a+n+1)-a-1;
-    build(++id,1,cnt);
-    root[0]=1;
-    for (register int i=1;i&lt;=n;i++)
-    {
-        root[i]=add(root[i-1],1,cnt,li(b[i]));
+    int n=read(),m=read();
+    for(int i=1;i&lt;=m;i++) a[i].x=read(),a[i].y=read(),a[i].w=read();
+    sort(a+1,a+m+1,cmp);
+    for(int i=1;i&lt;=n;i++)fa[i]=i;
+    int cnt;
+    for(int i=1;i&lt;=m;i++){
+        if(findx(a[i].x)!=findx(a[i].y)){
+            ans+=a[i].w;
+            fa[findx(a[i].x)]=a[i].y;
+            cnt++;
+            if(cnt==n)break;
+        }
     }
-    while (m--)
-    {
-        int q=read(),w=read(),e=read();
-        printf(&quot;%d\n&quot;,a[query(root[q-1],root[w],1,cnt,e)]);
-    }
+    printf(&quot;%d&quot;,ans);
     return 0;
 }
 </code></pre>

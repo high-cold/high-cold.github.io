@@ -8,10 +8,10 @@
   <meta name="description" content="">
   <meta name="author" content="high-cold">
   <!-- Open Graph Data -->
-  <meta property="og:title" content="High-Cold"/>
+  <meta property="og:title" content="并查集"/>
   <meta property="og:description" content="" />
   <meta property="og:site_name" content="High-Cold"/>
-  <meta property="og:type" content="website" />
+  <meta property="og:type" content="article" />
   <meta property="og:image" content="http://yoursite.com"/>
   
     <link rel="alternate" href="/atom.xml" title="High-Cold" type="application/atom+xml">
@@ -52,8 +52,7 @@
     }
   </style>
   <body>
-    <!-- Archive Header -->
-<!-- Page Header -->
+    <!-- Page Header -->
 
 
 <header class="site-header header-background" style="background-image: url(/img/default-banner-light.jpg)">
@@ -61,7 +60,7 @@
     <div class="row">
       <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
         <div class="page-title with-background-image">
-          <p class="title">Blog Archives</p>
+          <p class="title">并查集</p>
           <p class="subtitle"></p>
         </div>
         <div class="site-menu with-background-image">
@@ -106,113 +105,117 @@
   </div>
 </header>
 
-<!-- Archive List -->
-<div class="container">
-  <div class="row">
-    <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
-      
-        <div class="archive-item">
-  <a href="/2018/05/14/s/" class="post-title">
-    s
-  </a>
-  <div class="date text-muted">Posted on 05/14/18 19:19:50</div>
-</div>
+<article>
+  <div class="container typo">
+    <div class="row">
+      <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+        <div class="post-info text-muted">
+          
+            <!-- Author -->
+            <span class="author info">By high-cold</span>
+          
+          <!-- Date -->
+          <span class="date-time info">On
+            <span class="date">05/14/18</span>
+            <span class="time">19:21:12</span>
+          </span>
+          
+        </div>
+        <!-- Tags -->
+        
+          <div class="post-tags text-muted">
+            Tags: 
 
-      
-        <div class="archive-item">
-  <a href="/2018/05/14/左偏树（可并堆）/" class="post-title">
-    左偏树（可并堆）
-  </a>
-  <div class="date text-muted">Posted on 05/14/18 19:03:35</div>
-</div>
+<a class="tag" href="/tags/蒟蒻的板子/">#蒟蒻的板子</a>
 
-      
-        <div class="archive-item">
-  <a href="/2018/05/14/最小生成树/" class="post-title">
-    最小生成树
-  </a>
-  <div class="date text-muted">Posted on 05/14/18 19:03:13</div>
-</div>
 
-      
-        <div class="archive-item">
-  <a href="/2018/05/14/最小费用最大流/" class="post-title">
-    最小费用最大流
-  </a>
-  <div class="date text-muted">Posted on 05/14/18 19:03:00</div>
-</div>
+          </div>
+        
+        <!-- Post Main Content -->
+        <div class="post-content">
+          <pre><code>#include &lt;algorithm&gt; //STL通用算法
+#include &lt;cmath&gt; //定义数学函数
+#include &lt;cstdio&gt; //定义输入/输出函数
+#include &lt;iostream&gt; //数据流输入/输出
+#include &lt;cstring&gt; //字符串处理
+#include &lt;string&gt; //字符串类
+#include &lt;ctime&gt; //定义关于时间的函数
+#define itn int
+#define fro for
+/*#include &lt;bitset&gt; //STL位集容器
+#include &lt;cstype&gt; //字符处理
+#include &lt;cerrno&gt; //定义错误码
+#include &lt;complex&gt; //复数类
+#include &lt;clocale&gt; //定义本地化函数
+#include &lt;cstdlib&gt; //定义杂项函数及内存分配函数
+#include &lt;deque&gt; //STL双端队列容器
+#include &lt;exception&gt; //异常处理类
+#include &lt;fstream&gt; //文件输入/输出
+#include &lt;functional&gt; //STL定义运算函数(代替运算符)
+#include &lt;limits&gt; //定义各种数据类型最值常量
+#include &lt;list&gt; //STL线性列表容器
+#include &lt;map&gt; //STL映射容器
+#include &lt;iomanip&gt; //参数化输入/输出
+#include &lt;ios&gt; //基本输入/输出支持
+#include &lt;iosfwd&gt; //输入/输出系统使用的前置声明
+#include &lt;istream&gt; //基本输入流
+#include &lt;ostream&gt; //基本输出流
+#include &lt;queue&gt; //STL队列容器
+#include &lt;set&gt; //STL集合容器
+#include &lt;sstream&gt; //基于字符串的流
+#include &lt;stack&gt; //STL堆栈容器
+#include &lt;stdexcept&gt; //标准异常类
+#include &lt;streambuf&gt; //底层输入/输出支持
+#include &lt;utility&gt; //STL通用模板类
+#include &lt;vector&gt; //STL动态数组容器
+#include &lt;cwchar.h&gt;//宽字符处理及输入/输出
+#include &lt;cwctype.h&gt; //宽字符分类*/
 
-      
-        <div class="archive-item">
-  <a href="/2018/05/14/最小表示法/" class="post-title">
-    最小表示法
-  </a>
-  <div class="date text-muted">Posted on 05/14/18 19:02:44</div>
-</div>
+using namespace std;
 
-      
-        <div class="archive-item">
-  <a href="/2018/05/14/最近公共祖先Tarjan/" class="post-title">
-    最近公共祖先Tarjan
-  </a>
-  <div class="date text-muted">Posted on 05/14/18 19:02:34</div>
-</div>
+int ans;
 
-      
-        <div class="archive-item">
-  <a href="/2018/05/14/最近公共祖先（LCA）/" class="post-title">
-    最近公共祖先（LCA）
-  </a>
-  <div class="date text-muted">Posted on 05/14/18 19:02:07</div>
-</div>
+int max(int x,int y){
+    return x&gt;y?x:y;
+}
 
-      
-        <div class="archive-item">
-  <a href="/2018/05/14/字符串哈希/" class="post-title">
-    字符串哈希
-  </a>
-  <div class="date text-muted">Posted on 05/14/18 19:01:38</div>
-</div>
+int min(int x,int y){
+    return x&lt;y?x:y;
+}
 
-      
-        <div class="archive-item">
-  <a href="/2018/05/14/线性基/" class="post-title">
-    线性基
-  </a>
-  <div class="date text-muted">Posted on 05/14/18 19:01:27</div>
-</div>
+int read(){
+    int x=0,f=1;char ch=getchar();
+    while (ch&lt;&apos;0&apos; || ch&gt;&apos;9&apos;){if (ch==&apos;-&apos;)f=-1;ch=getchar();}
+    while (&apos;0&apos;&lt;=ch &amp;&amp; ch&lt;=&apos;9&apos;){x=(x&lt;&lt;3)+(x&lt;&lt;1)+(ch^48);ch=getchar();}
+    return x*f;
+}
 
-      
-        <div class="archive-item">
-  <a href="/2018/05/14/线段树1/" class="post-title">
-    线段树1
-  </a>
-  <div class="date text-muted">Posted on 05/14/18 19:01:19</div>
-</div>
+int a[11111],q,w,e,now;
 
-      
+int getdad(int x){return x==a[x]?x:a[x]=getdad(a[x]);}
 
+int main(){
+    int n,m;
+    n=read();m=read();
+    for (int i=1;i&lt;=n;i++)a[i]=i;
+    for (int i=1;i&lt;=m;i++){
+        scanf(&quot;%d&quot;,&amp;q);
+        if (q==1){
+            scanf(&quot;%d%d&quot;,&amp;w,&amp;e);
+            a[getdad(w)]=getdad(e);
+        }else {
+            scanf(&quot;%d%d&quot;,&amp;w,&amp;e);
+            if (getdad(w)==getdad(e)) printf(&quot;Y\n&quot;);else printf(&quot;N\n&quot;);
+        }
+    }
+    return 0;
+}
+</code></pre>
+        </div>
+      </div>
     </div>
   </div>
-</div>
-<!-- Pagination -->
-<div class="container">
-  <div class="row">
-    <div class="col-lg-10 col-md-10 col-md-offset-1">
-      <ul class="pagination">
-          
-          
-            <li class="next">
-              <a href="/archives/2018/page/2/">
-                <span>NEXT</span>
-                <span class="symbol-right">&gt;</span>
-              </a>
-            </li>
-          
-      </ul>
-    </div>
-  </div>
-</div>
+</article>
 
 
 

@@ -8,7 +8,7 @@
   <meta name="description" content="">
   <meta name="author" content="high-cold">
   <!-- Open Graph Data -->
-  <meta property="og:title" content="可持久化线段树（主席树）"/>
+  <meta property="og:title" content="线段树2"/>
   <meta property="og:description" content="" />
   <meta property="og:site_name" content="High-Cold"/>
   <meta property="og:type" content="article" />
@@ -60,7 +60,7 @@
     <div class="row">
       <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
         <div class="page-title with-background-image">
-          <p class="title">可持久化线段树（主席树）</p>
+          <p class="title">线段树2</p>
           <p class="subtitle"></p>
         </div>
         <div class="site-menu with-background-image">
@@ -116,7 +116,7 @@
           
           <!-- Date -->
           <span class="date-time info">On
-            <span class="date">05/12/18</span>
+            <span class="date">05/14/18</span>
             <span class="time">19:21:12</span>
           </span>
           
@@ -133,65 +133,26 @@
         
         <!-- Post Main Content -->
         <div class="post-content">
-          <pre><code>#include &lt;algorithm&gt; //STL通用算法
-#include &lt;cmath&gt; //定义数学函数
-#include &lt;cstdio&gt; //定义输入/输出函数
-#include &lt;iostream&gt; //数据流输入/输出
-#include &lt;cstring&gt; //字符串处理
-#include &lt;string&gt; //字符串类
-#include &lt;ctime&gt; //定义关于时间的函数
-#define itn int
-#define fro for
-#define ll long long
-#define reg register
-#define inf 1234567890
-/*#include &lt;bitset&gt; //STL位集容器
-#include &lt;cstype&gt; //字符处理
-#include &lt;cerrno&gt; //定义错误码
-#include &lt;complex&gt; //复数类
-#include &lt;clocale&gt; //定义本地化函数
-#include &lt;cstdlib&gt; //定义杂项函数及内存分配函数
-#include &lt;deque&gt; //STL双端队列容器
-#include &lt;exception&gt; //异常处理类
-#include &lt;fstream&gt; //文件输入/输出
-#include &lt;functional&gt; //STL定义运算函数(代替运算符)
-#include &lt;limits&gt; //定义各种数据类型最值常量
-#include &lt;list&gt; //STL线性列表容器
-#include &lt;map&gt; //STL映射容器
-#include &lt;iomanip&gt; //参数化输入/输出
-#include &lt;ios&gt; //基本输入/输出支持
-#include &lt;iosfwd&gt; //输入/输出系统使用的前置声明
-#include &lt;istream&gt; //基本输入流
-#include &lt;ostream&gt; //基本输出流
-#include &lt;queue&gt; //STL队列容器
-#include &lt;set&gt; //STL集合容器
-#include &lt;sstream&gt; //基于字符串的流
-#include &lt;stack&gt; //STL堆栈容器
-#include &lt;stdexcept&gt; //标准异常类
-#include &lt;streambuf&gt; //底层输入/输出支持
-#include &lt;utility&gt; //STL通用模板类
-#include &lt;vector&gt; //STL动态数组容器
-#include &lt;cwchar.h&gt;//宽字符处理及输入/输出
-#include &lt;cwctype.h&gt; //宽字符分类*/
-
+          <pre><code>#include &lt;iostream&gt; //数据流输入/输出
+#include &lt;cstdio&gt;
 using namespace std;
 
-int ans;
+int max(int x,int y){
+    return x&gt;y?x:y;
+}
 
-int max(int x,int y){return x&gt;y?x:y;}
+int min(int x,int y){
+    return x&lt;y?x:y;
+}
 
-int min(int x,int y){return x&lt;y?x:y;}
-
-int read()
-{
+int read(){
     int x=0,f=1;char ch=getchar();
-    while (ch&lt;&apos;0&apos; || ch&gt;&apos;9&apos;){if (ch==&apos;-&apos;)f=-1;ch=getchar();}
-    while (&apos;0&apos;&lt;=ch &amp;&amp; ch&lt;=&apos;9&apos;){x=x*10+(ch^48);ch=getchar();}
+    while (ch&lt;&apos;0&apos;||ch&gt;&apos;9&apos;){if (ch==&apos;-&apos;)f=-1;ch=getchar();}
+    while (&apos;0&apos;&lt;=ch&amp;&amp;ch&lt;=&apos;9&apos;){x=x*10+(ch^48);ch=getchar();}
     return x*f;
 }
 
-void write(int x)
-{
+inline void write(long long x){
     int buf[50];
     if (x&lt;0) putchar(&apos;-&apos;),x=-x;
     buf[0]=0;
@@ -200,66 +161,120 @@ void write(int x)
     while (buf[0]) putchar(&apos;0&apos;+buf[buf[0]--]);
 }
 
-struct node
+int p;
+
+long long a[100007];
+
+struct edge
 {
-    int l,r,sum;
-}t[20002000];
+    long long value,mult,add,l,r;
+}tree[400007];
 
-int a[500500],b[500500],n,m,id=0,cnt,root[500500];
-
-int li(int x){return lower_bound(a+1,a+cnt+1,x)-a;}
-
-inline void build(int x,int l,int r)
+void Build(int root,int l,int r)
 {
-    if (l==r) 
+    tree[root].mult=1,
+    tree[root].add=0,
+    tree[root].l=l,
+    tree[root].r=r;
+    if(l==r) tree[root].value=a[l]%p;
+    else
     {
-        t[x].l=t[x].r=-1;
-        t[x].sum=0;
+        int m=(l+r)&gt;&gt;1;
+        Build(root*2,l,m);
+        Build(root*2+1,m+1,r);
+        tree[root].value=(tree[root*2].value+tree[root*2+1].value)%p;
+    }
+    return ;
+}
+
+inline void pushdown(int root,int l,int r)
+{
+    int m=(l+r)&gt;&gt;1;
+    tree[root*2].value=(tree[root*2].value*tree[root].mult+tree[root].add*(m-l+1))%p;
+    tree[root*2+1].value=(tree[root*2+1].value*tree[root].mult+tree[root].add*(r-m))%p;
+    tree[root*2].mult=(tree[root*2].mult*tree[root].mult)%p;
+    tree[root*2+1].mult=(tree[root*2+1].mult*tree[root].mult)%p;
+    tree[root*2].add=(tree[root*2].add*tree[root].mult+tree[root].add)%p;
+    tree[root*2+1].add=(tree[root*2+1].add*tree[root].mult+tree[root].add)%p;
+    tree[root].mult=1;
+    tree[root].add=0;
+    return ;
+}
+
+void Cheng(int root,int l,int r,long long k)
+{
+    if(r&lt;tree[root].l||tree[root].r&lt;l) return ;
+    if(l&lt;=tree[root].l&amp;&amp;tree[root].r&lt;=r)
+    {
+        tree[root].value=(tree[root].value*k)%p;
+        tree[root].mult=(tree[root].mult*k)%p;
+        tree[root].add=(tree[root].add*k)%p;
         return ;
     }
-    int mid=l+r&gt;&gt;1;
-    t[x].l=++id;t[x].r=++id;
-    build(t[x].l,l,mid);
-    build(t[x].r,mid+1,r);
+    pushdown(root,tree[root].l,tree[root].r);
+    Cheng(root*2,l,r,k);
+    Cheng(root*2+1,l,r,k);
+    tree[root].value=(tree[root*2].value+tree[root*2+1].value)%p;
+    return ;
 }
 
-inline int add(int x,int l,int r,int to)
+void Plus(int root,int l,int r,long long k)
 {
-    int now=++id;
-    t[now].l=t[x].l;t[now].r=t[x].r;t[now].sum=t[x].sum+1;
-    if (l&lt;r)
+    if(r&lt;tree[root].l||tree[root].r&lt;l) return ;
+    if(l&lt;=tree[root].l &amp;&amp; tree[root].r&lt;=r)
     {
-        int mid=l+r&gt;&gt;1;
-        if (mid&gt;=to) t[now].l=add(t[x].l,l,mid,to);
-        else t[now].r=add(t[x].r,mid+1,r,to);
+        tree[root].add=(tree[root].add+k)%p;
+        tree[root].value=(tree[root].value+k*(tree[root].r-tree[root].l+1))%p;
+        return ;
     }
-    return now;
+    pushdown(root,tree[root].l,tree[root].r);
+    int m=(tree[root].l+tree[root].r)&gt;&gt;1;
+    Plus(root*2,l,r,k);
+    Plus(root*2+1,l,r,k);
+    tree[root].value=(tree[root*2].value+tree[root*2+1].value)%p;
+    return ;
 }
 
-inline int query(int u,int v,int l,int r,int k)
+long long Ask(int root,int l,int r)
 {
-    if (l==r) return l;
-    int x=t[t[v].l].sum-t[t[u].l].sum;
-    int mid=l+r&gt;&gt;1;
-    if (x&lt;k) return query(t[u].r,t[v].r,mid+1,r,k-x);
-    else return query(t[u].l,t[v].l,l,mid,k);
+    if(r&lt;tree[root].l||tree[root].r&lt;l) return 0;
+    if(l&lt;=tree[root].l&amp;&amp;tree[root].r&lt;=r) return tree[root].value;
+    pushdown(root,tree[root].l,tree[root].r);
+    return (Ask(root*2,l,r)+Ask(root*2+1,l,r))%p;
 }
 
 int main(){
-    n=read(),m=read();
-    for (register int i=1;i&lt;=n;i++) a[i]=b[i]=read();
-    sort(a+1,a+n+1);
-    cnt=unique(a+1,a+n+1)-a-1;
-    build(++id,1,cnt);
-    root[0]=1;
-    for (register int i=1;i&lt;=n;i++)
+    int n,m;
+    n=read(),m=read(),p=read(); 
+
+    for(int i=1;i&lt;=n;i++) a[i]=read();
+
+    Build(1,1,n);
+    int x,y,op;
+    long long k;
+    for (int i=1;i&lt;=m;i++)
     {
-        root[i]=add(root[i-1],1,cnt,li(b[i]));
-    }
-    while (m--)
-    {
-        int q=read(),w=read(),e=read();
-        printf(&quot;%d\n&quot;,a[query(root[q-1],root[w],1,cnt,e)]);
+        op=read();
+        if(op==1)
+        {
+            x=read(),y=read(),k=read();
+            Cheng(1,x,y,k);
+            continue;
+        }
+
+        if(op==2)
+        {
+            x=read(),y=read(),k=read();
+            Plus(1,x,y,k);
+            continue;
+        }
+
+        if (op==3)
+        {
+            x=read(),y=read();
+            write(Ask(1,x,y));
+            putchar(&apos;\n&apos;);
+        }
     }
     return 0;
 }

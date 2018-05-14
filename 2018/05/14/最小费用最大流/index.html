@@ -8,7 +8,7 @@
   <meta name="description" content="">
   <meta name="author" content="high-cold">
   <!-- Open Graph Data -->
-  <meta property="og:title" content="可持久化线段树（主席树）"/>
+  <meta property="og:title" content="最小费用最大流"/>
   <meta property="og:description" content="" />
   <meta property="og:site_name" content="High-Cold"/>
   <meta property="og:type" content="article" />
@@ -60,7 +60,7 @@
     <div class="row">
       <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
         <div class="page-title with-background-image">
-          <p class="title">可持久化线段树（主席树）</p>
+          <p class="title">最小费用最大流</p>
           <p class="subtitle"></p>
         </div>
         <div class="site-menu with-background-image">
@@ -116,7 +116,7 @@
           
           <!-- Date -->
           <span class="date-time info">On
-            <span class="date">05/12/18</span>
+            <span class="date">05/14/18</span>
             <span class="time">19:21:12</span>
           </span>
           
@@ -140,18 +140,16 @@
 #include &lt;cstring&gt; //字符串处理
 #include &lt;string&gt; //字符串类
 #include &lt;ctime&gt; //定义关于时间的函数
+#include &lt;deque&gt; //STL双端队列容器
 #define itn int
 #define fro for
 #define ll long long
-#define reg register
-#define inf 1234567890
 /*#include &lt;bitset&gt; //STL位集容器
 #include &lt;cstype&gt; //字符处理
 #include &lt;cerrno&gt; //定义错误码
 #include &lt;complex&gt; //复数类
 #include &lt;clocale&gt; //定义本地化函数
 #include &lt;cstdlib&gt; //定义杂项函数及内存分配函数
-#include &lt;deque&gt; //STL双端队列容器
 #include &lt;exception&gt; //异常处理类
 #include &lt;fstream&gt; //文件输入/输出
 #include &lt;functional&gt; //STL定义运算函数(代替运算符)
@@ -178,20 +176,22 @@ using namespace std;
 
 int ans;
 
-int max(int x,int y){return x&gt;y?x:y;}
+int max(int x,int y){
+    return x&gt;y?x:y;
+}
 
-int min(int x,int y){return x&lt;y?x:y;}
+int min(int x,int y){
+    return x&lt;y?x:y;
+}
 
-int read()
-{
+int read(){
     int x=0,f=1;char ch=getchar();
     while (ch&lt;&apos;0&apos; || ch&gt;&apos;9&apos;){if (ch==&apos;-&apos;)f=-1;ch=getchar();}
-    while (&apos;0&apos;&lt;=ch &amp;&amp; ch&lt;=&apos;9&apos;){x=x*10+(ch^48);ch=getchar();}
+    while (&apos;0&apos;&lt;=ch &amp;&amp; ch&lt;=&apos;9&apos;){x=(x&lt;&lt;3)+(x&lt;&lt;1)+(ch^48);ch=getchar();}
     return x*f;
 }
 
-void write(int x)
-{
+void write(int x){
     int buf[50];
     if (x&lt;0) putchar(&apos;-&apos;),x=-x;
     buf[0]=0;
@@ -200,67 +200,98 @@ void write(int x)
     while (buf[0]) putchar(&apos;0&apos;+buf[buf[0]--]);
 }
 
-struct node
+struct Edge
 {
-    int l,r,sum;
-}t[20002000];
+    int to,cap,cost,next;
+};
 
-int a[500500],b[500500],n,m,id=0,cnt,root[500500];
+Edge e[101010];
+int a[101010],d[101010];bool inq[101010],vis[101010];
+int n,m,S,T;
+int ret;
 
-int li(int x){return lower_bound(a+1,a+cnt+1,x)-a;}
 
-inline void build(int x,int l,int r)
+deque&lt;int &gt; q;
+
+int EdgeCnt=0;
+
+void Add(int u,int v,int w,int c)
 {
-    if (l==r) 
-    {
-        t[x].l=t[x].r=-1;
-        t[x].sum=0;
-        return ;
-    }
-    int mid=l+r&gt;&gt;1;
-    t[x].l=++id;t[x].r=++id;
-    build(t[x].l,l,mid);
-    build(t[x].r,mid+1,r);
+    int &amp;p=EdgeCnt;
+    e[p].to=v;e[p].cap=w;e[p].cost=c;e[p].next=a[u];
+    a[u]=p++;
 }
 
-inline int add(int x,int l,int r,int to)
+bool SPFA()
 {
-    int now=++id;
-    t[now].l=t[x].l;t[now].r=t[x].r;t[now].sum=t[x].sum+1;
-    if (l&lt;r)
+    for (int i=0;i&lt;=n;i++) d[i]=1234567890;
+    memset(inq,0,sizeof(inq));
+    d[T]=0;inq[T]=1;q.push_back(T);
+    while (!q.empty())
     {
-        int mid=l+r&gt;&gt;1;
-        if (mid&gt;=to) t[now].l=add(t[x].l,l,mid,to);
-        else t[now].r=add(t[x].r,mid+1,r,to);
+        int u=q.front();
+        q.pop_front();
+        inq[u]=0;
+        for (int p=a[u];p!=-1;p=e[p].next)
+        {
+            int v=e[p].to;
+            if (e[p^1].cap&amp;&amp;d[v]&gt;d[u]-e[p].cost)
+            {
+                d[v]=d[u]-e[p].cost;
+                if (!inq[v]){
+                    inq[v]=true;
+                    if (q.empty()||d[v]&gt;=d[q.front()]) q.push_back(v);
+                        else q.push_front(v);
+                }
+            }
+        }
     }
-    return now;
+    return d[S]&lt;1234567890;
 }
 
-inline int query(int u,int v,int l,int r,int k)
+int dfs(int u,int f)
 {
-    if (l==r) return l;
-    int x=t[t[v].l].sum-t[t[u].l].sum;
-    int mid=l+r&gt;&gt;1;
-    if (x&lt;k) return query(t[u].r,t[v].r,mid+1,r,k-x);
-    else return query(t[u].l,t[v].l,l,mid,k);
+    vis[u]=1;
+    if (f==0||u==T) return f;
+    int used=0;
+    for (int p=a[u];p!=-1;p=e[p].next)
+    {
+        int v=e[p].to;
+        if ((!vis[v])&amp;&amp;e[p].cap&amp;&amp;d[v]==d[u]-e[p].cost)
+        {
+            int w=f-used;
+            w=dfs(v,min(e[p].cap,w));
+            e[p].cap-=w;
+            e[p^1].cap+=w;
+            used+=w;
+            if (used==f) return used;
+        } 
+    }
+    return used;
 }
 
 int main(){
-    n=read(),m=read();
-    for (register int i=1;i&lt;=n;i++) a[i]=b[i]=read();
-    sort(a+1,a+n+1);
-    cnt=unique(a+1,a+n+1)-a-1;
-    build(++id,1,cnt);
-    root[0]=1;
-    for (register int i=1;i&lt;=n;i++)
+    n=read(),m=read(),S=read(),T=read();
+    int u,v,w,c;
+    memset(a,0xff,sizeof(a));
+    for (int i=1;i&lt;=m;i++)
     {
-        root[i]=add(root[i-1],1,cnt,li(b[i]));
+        u=read();v=read();w=read();c=read();
+        Add(u,v,w,c);
+        Add(v,u,0,-c);
     }
-    while (m--)
+    while (SPFA())
     {
-        int q=read(),w=read(),e=read();
-        printf(&quot;%d\n&quot;,a[query(root[q-1],root[w],1,cnt,e)]);
+        vis[T]=1;
+        while (vis[T])
+        {
+            memset(vis,0,sizeof(vis));
+            int flow=dfs(S,1234567890);
+            ret+=d[S]*flow;
+            ans+=flow;
+        }
     }
+    printf(&quot;%d %d&quot;,ans,ret);
     return 0;
 }
 </code></pre>
