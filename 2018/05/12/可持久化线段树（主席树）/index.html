@@ -8,7 +8,7 @@
   <meta name="description" content="">
   <meta name="author" content="high-cold">
   <!-- Open Graph Data -->
-  <meta property="og:title" content="Hello World"/>
+  <meta property="og:title" content="可持久化线段树（主席树）"/>
   <meta property="og:description" content="" />
   <meta property="og:site_name" content="High-Cold"/>
   <meta property="og:type" content="article" />
@@ -60,7 +60,7 @@
     <div class="row">
       <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
         <div class="page-title with-background-image">
-          <p class="title">Hello World</p>
+          <p class="title">可持久化线段树（主席树）</p>
           <p class="subtitle"></p>
         </div>
         <div class="site-menu with-background-image">
@@ -116,24 +116,97 @@
           
           <!-- Date -->
           <span class="date-time info">On
-            <span class="date">05/10/18</span>
+            <span class="date">05/12/18</span>
             <span class="time">09:42:14</span>
           </span>
           
         </div>
         <!-- Tags -->
         
+          <div class="post-tags text-muted">
+            Tags: 
+
+<a class="tag" href="/tags/蒟蒻的板子/">#蒟蒻的板子</a>
+
+
+          </div>
+        
         <!-- Post Main Content -->
         <div class="post-content">
-          <p>Welcome to <a href="https://hexo.io/" target="_blank" rel="noopener">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/" target="_blank" rel="noopener">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html" target="_blank" rel="noopener">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues" target="_blank" rel="noopener">GitHub</a>.</p>
-<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo new <span class="string">"My New Post"</span></span><br></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/writing.html" target="_blank" rel="noopener">Writing</a></p>
-<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/server.html" target="_blank" rel="noopener">Server</a></p>
-<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/generating.html" target="_blank" rel="noopener">Generating</a></p>
-<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/deployment.html" target="_blank" rel="noopener">Deployment</a></p>
+          <pre><code>
+
+
+#include <algorithm> //STL通用算法
+#include <cmath> //定义数学函数
+#include <cstdio> //定义输入/输出函数
+#include <iostream> //数据流输入/输出
+#include <cstring> //字符串处理
+#include <string> //字符串类
+#include <ctime> //定义关于时间的函数
+#define itn int
+#define fro for
+#define ll long long
+#define reg register
+#define inf 1234567890
+/*#include <bitset> //STL位集容器
+#include <cstype> //字符处理
+#include <cerrno> //定义错误码
+#include <complex> //复数类
+#include <clocale> //定义本地化函数
+#include <cstdlib> //定义杂项函数及内存分配函数
+#include <deque> //STL双端队列容器
+#include <exception> //异常处理类
+#include <fstream> //文件输入/输出
+#include <functional> //STL定义运算函数(代替运算符)
+#include <limits> //定义各种数据类型最值常量
+#include <list> //STL线性列表容器
+#include <map> //STL映射容器
+#include <iomanip> //参数化输入/输出
+#include <ios> //基本输入/输出支持
+#include <iosfwd> //输入/输出系统使用的前置声明
+#include <istream> //基本输入流
+#include <ostream> //基本输出流
+#include <queue> //STL队列容器
+#include <set> //STL集合容器
+#include <sstream> //基于字符串的流
+#include <stack> //STL堆栈容器
+#include <stdexcept> //标准异常类
+#include <streambuf> //底层输入/输出支持
+#include <utility> //STL通用模板类
+#include <vector> //STL动态数组容器
+#include <cwchar.h>//宽字符处理及输入/输出
+#include <cwctype.h> //宽字符分类*/
+
+using namespace std;
+
+int ans;
+
+int max(int x,int y){return x>y?x:y;}
+
+int min(int x,int y){return x<y?x:y;} int="" read()="" {="" x="0,f=1;char" ch="getchar();" while="" (ch<'0'="" ||="">'9'){if (ch=='-')f=-1;ch=getchar();}
+    while ('0'<=ch &&="" ch<="9" ){x="x*10+(ch^48);ch=getchar();}" return="" x*f;="" }="" void="" write(int="" x)="" {="" int="" buf[50];="" if="" (x<0)="" putchar('-'),x="-x;" buf[0]="0;" while="" (x)="" buf[++buf[0]]="x%10,x/=10;" (!buf[0])="" (buf[0])="" putchar('0'+buf[buf[0]--]);="" struct="" node="" l,r,sum;="" }t[20002000];="" a[500500],b[500500],n,m,id="0,cnt,root[500500];" li(int="" x){return="" lower_bound(a+1,a+cnt+1,x)-a;}="" inline="" build(int="" x,int="" l,int="" r)="" (l="=r)" t[x].l="t[x].r=-1;" t[x].sum="0;" ;="" mid="l+r">>1;
+    t[x].l=++id;t[x].r=++id;
+    build(t[x].l,l,mid);
+    build(t[x].r,mid+1,r);
+}
+
+inline int add(int x,int l,int r,int to)
+{
+    int now=++id;
+    t[now].l=t[x].l;t[now].r=t[x].r;t[now].sum=t[x].sum+1;
+    if (l<r) {="" int="" mid="l+r">>1;
+        if (mid>=to) t[now].l=add(t[x].l,l,mid,to);
+        else t[now].r=add(t[x].r,mid+1,r,to);
+    }
+    return now;
+}
+
+inline int query(int u,int v,int l,int r,int k)
+{
+    if (l==r) return l;
+    int x=t[t[v].l].sum-t[t[u].l].sum;
+    int mid=l+r>>1;
+    if (x<k) return="" query(t[u].r,t[v].r,mid+1,r,k-x);="" else="" query(t[u].l,t[v].l,l,mid,k);="" }="" int="" main(){="" n="read(),m=read();" for="" (register="" i="1;i<=n;i++)" a[i]="b[i]=read();" sort(a+1,a+n+1);="" cnt="unique(a+1,a+n+1)-a-1;" build(++id,1,cnt);="" root[0]="1;" {="" root[i]="add(root[i-1],1,cnt,li(b[i]));" while="" (m--)="" q="read(),w=read(),e=read();" printf("%d\n",a[query(root[q-1],root[w],1,cnt,e)]);="" 0;="" <="" code=""></k)></r)></=ch></y?x:y;}></cwctype.h></cwchar.h></vector></utility></streambuf></stdexcept></stack></sstream></set></queue></ostream></istream></iosfwd></ios></iomanip></map></list></limits></functional></fstream></exception></deque></cstdlib></clocale></complex></cerrno></cstype></bitset></ctime></string></cstring></iostream></cstdio></cmath></algorithm></code></pre>
 
         </div>
       </div>
