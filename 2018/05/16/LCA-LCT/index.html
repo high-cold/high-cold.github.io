@@ -1,0 +1,358 @@
+<!DOCTYPE html>
+<html>
+  <!-- Html Head Tag-->
+  <head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="">
+  <meta name="author" content="high-cold">
+  <!-- Open Graph Data -->
+  <meta property="og:title" content="LCA-LCT"/>
+  <meta property="og:description" content="" />
+  <meta property="og:site_name" content="High-Cold"/>
+  <meta property="og:type" content="article" />
+  <meta property="og:image" content="http://yoursite.com"/>
+  
+    <link rel="alternate" href="/atom.xml" title="High-Cold" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+
+  <!-- Site Title -->
+  <title>High-Cold</title>
+
+  <!-- Bootstrap CSS -->
+  <link rel="stylesheet" href="/css/bootstrap.min.css">
+  <!-- Custom CSS -->
+  
+  <link rel="stylesheet" href="/css/style.light.css">
+
+  <!-- Google Analytics -->
+  
+
+</head>
+
+
+<script src="//cdn.bootcss.com/pace/1.0.2/pace.min.js"></script>
+<link href="//cdn.bootcss.com/pace/1.0.2/themes/pink/pace-theme-flash.css" rel="stylesheet">
+
+<style>
+    .pace .pace-progress {
+    	background: #1E92FB; /*进度条颜色*/
+    	height: 3px;
+    }
+    .pace .pace-progress-inner {
+     	box-shadow: 0 0 10px #1E92FB, 0 0 5px #1E92FB; /*阴影颜色*/
+    }
+    .pace .pace-activity {
+    	border-top-color: #1E92FB;	/*上边框颜色*/
+    	border-left-color: #1E92FB;	/*左边框颜色*/
+    }
+  </style>
+  <body>
+    <!-- Page Header -->
+
+
+<header class="site-header header-background" style="background-image: url(/img/default-banner-light.jpg)">
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+        <div class="page-title with-background-image">
+          <p class="title">LCA-LCT</p>
+          <p class="subtitle"></p>
+        </div>
+        <div class="site-menu with-background-image">
+          <ul>
+            
+              <li>
+                <a href="/">
+                  
+                  Home
+                  
+                </a>
+              </li>
+            
+              <li>
+                <a href="/archives">
+                  
+                  Archives
+                  
+                </a>
+              </li>
+            
+              <li>
+                <a href="https://github.com/high-cold">
+                  
+                  Github
+                  
+                </a>
+              </li>
+            
+              <li>
+                <a href="http://1286791085@qq.com">
+                  
+                  Email
+                  
+                </a>
+              </li>
+            
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</header>
+
+<article>
+  <div class="container typo">
+    <div class="row">
+      <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+        <div class="post-info text-muted">
+          
+            <!-- Author -->
+            <span class="author info">By high-cold</span>
+          
+          <!-- Date -->
+          <span class="date-time info">On
+            <span class="date">05/16/18</span>
+            <span class="time">20:22:58</span>
+          </span>
+          
+          <!--  Categories  -->
+            <span class="categories info">Under 
+
+<a href="/categories/LCA/">LCA</a>
+</span>
+          
+        </div>
+        <!-- Tags -->
+        
+          <div class="post-tags text-muted">
+            Tags: 
+
+<a class="tag" href="/tags/蒟蒻的LCA/">#蒟蒻的LCA</a>
+
+
+          </div>
+        
+        <!-- Post Main Content -->
+        <div class="post-content">
+          <p>这是蒟蒻我现在会的唯一的动态树LCA</p>
+<a id="more"></a>
+<p>先access(u),splay(u),查看一下v所在splay的根是否为u，如果是的话，那么 LCA(u,v)=vLCA(u,v)=v ；</p>
+<p>然后access(v),此时再splay(v),查询一下u所在splay中的根节点为是否为v，如果是的话那么 LCA(u,v)=uLCA(u,v)=u ;</p>
+<p>否则的话splay(u), LCA(u,v)=fa[u]LCA(u,v)=fa[u] ;</p>
+<p>这个结论是很显然的，如果 u,vu,v 的LCA是他们中的某一个的话，那么假设 $LCA(u，v)=u$ ，那么u一定在v到根节点的路径上，在第二步时，access(v)以后u就与v在一棵子树中，所以 $LCA(u，v)=u$ ，所以第二个步骤成立。第一步同理。 考虑第二种情况，如果 LCA(u,v)=tLCA(u,v)=t ，那么在前两步执行完后，u在splay的根的父节点一定在v所在的splay中，且splay(u)后, fa[u]==LCA(u,v)fa[u]==LCA(u,v) ;证毕。</p>
+<p>贴上代码：</p>
+<pre><code>#include &lt;algorithm&gt; //STL通用算法
+#include &lt;cmath&gt; //定义数学函数
+#include &lt;cstdio&gt; //定义输入/输出函数
+#include &lt;iostream&gt; //数据流输入/输出
+#include &lt;cstring&gt; //字符串处理
+#include &lt;string&gt; //字符串类
+#include &lt;ctime&gt; //定义关于时间的函数
+#define itn int
+#define fro for
+#define ll long long
+#define reg register
+#define inf 1234567890
+/*#include &lt;bitset&gt; //STL位集容器
+#include &lt;cstype&gt; //字符处理
+#include &lt;cerrno&gt; //定义错误码
+#include &lt;complex&gt; //复数类
+#include &lt;clocale&gt; //定义本地化函数
+#include &lt;cstdlib&gt; //定义杂项函数及内存分配函数
+#include &lt;deque&gt; //STL双端队列容器
+#include &lt;exception&gt; //异常处理类
+#include &lt;fstream&gt; //文件输入/输出
+#include &lt;functional&gt; //STL定义运算函数(代替运算符)
+#include &lt;limits&gt; //定义各种数据类型最值常量
+#include &lt;list&gt; //STL线性列表容器
+#include &lt;map&gt; //STL映射容器
+#include &lt;iomanip&gt; //参数化输入/输出
+#include &lt;ios&gt; //基本输入/输出支持
+#include &lt;iosfwd&gt; //输入/输出系统使用的前置声明
+#include &lt;istream&gt; //基本输入流
+#include &lt;ostream&gt; //基本输出流
+#include &lt;queue&gt; //STL队列容器
+#include &lt;set&gt; //STL集合容器
+#include &lt;sstream&gt; //基于字符串的流
+#include &lt;stack&gt; //STL堆栈容器
+#include &lt;stdexcept&gt; //标准异常类
+#include &lt;streambuf&gt; //底层输入/输出支持
+#include &lt;utility&gt; //STL通用模板类
+#include &lt;vector&gt; //STL动态数组容器
+#include &lt;cwchar.h&gt;//宽字符处理及输入/输出
+#include &lt;cwctype.h&gt; //宽字符分类*/
+
+using namespace std;
+
+int ans;
+
+int max(int x,int y){return x&gt;y?x:y;}
+
+int min(int x,int y){return x&lt;y?x:y;}
+
+int read()
+{
+    int x=0,f=1;char ch=getchar();
+    while (ch&lt;&apos;0&apos; || ch&gt;&apos;9&apos;){if (ch==&apos;-&apos;)f=-1;ch=getchar();}
+    while (&apos;0&apos;&lt;=ch &amp;&amp; ch&lt;=&apos;9&apos;){x=x*10+(ch^48);ch=getchar();}
+    return x*f;
+}
+
+void write(int x)
+{
+    int buf[50];
+    if (x&lt;0) putchar(&apos;-&apos;),x=-x;
+    buf[0]=0;
+    while (x) buf[++buf[0]]=x%10,x/=10;
+    if (!buf[0]) buf[0]=1,buf[1]=0;
+    while (buf[0]) putchar(&apos;0&apos;+buf[buf[0]--]);
+}
+
+int fa[500500],ch[500500][3],key[500500],sum[500500],lazy[500500];
+int stk[500500],top=0;
+
+int notroot(int x){return ch[fa[x]][0]==x||ch[fa[x]][1]==x;}
+
+void pushr(int x){swap(ch[x][0],ch[x][1]);lazy[x]^=1;}
+
+void pushup(int x){sum[x]=sum[ch[x][0]]^sum[ch[x][1]]^key[x];}
+
+void pushdown(int x)
+{
+    if (lazy[x])
+    {
+        if (ch[x][0]) pushr(ch[x][0]);
+        if (ch[x][1]) pushr(ch[x][1]);
+        lazy[x]=0;
+    }
+}
+
+void rot(int x)
+{
+    int y=fa[x],z=fa[y],k=ch[y][1]==x,w=ch[x][!k];
+    if (notroot(y)) ch[z][ch[z][1]==y]=x;
+    ch[x][!k]=y;ch[y][k]=w;
+    if (w) fa[w]=y;fa[y]=x;fa[x]=z;
+    pushup(y);
+}
+
+void splay(int x)
+{
+    int y=x,z;top=0;
+    stk[++top]=y;
+    while (notroot(y)) stk[++top]=y=fa[y];
+    while (top) pushdown(stk[top--]);
+    while (notroot(x))
+    {
+        y=fa[x],z=fa[y];
+        if (notroot(y))
+            rot((ch[y][0]==x)^(ch[z][0]==y)?x:y);
+        rot(x);
+    }
+    pushup(x);
+}
+
+int access(int root)
+{
+    int temp=0;
+    while (root)
+    {
+        splay(root);
+        ch[root][1]=temp;
+        temp=root;
+        root=fa[root];
+    }
+    return temp;
+}
+
+void makeroot(int x){access(x);splay(x);pushr(x);}
+
+int findroot(int x)
+{
+    access(x);splay(x);
+    while (ch[x][0]) pushdown(x),x=ch[x][0];
+    return x;
+}
+
+void link(int x,int y){makeroot(x);if (findroot(y)!=x) fa[x]=y;}
+
+int lca(int x,int y)
+{
+    access(x);splay(x);
+    int u=y;
+    while (notroot(u)) u=fa[u];
+    if (u==x) return y;
+    access(y);splay(y);
+    u=x;
+    while (notroot(u)) u=fa[u];
+    if (u==y) return x;
+    splay(x);
+    return fa[x];
+}
+
+int main()
+{
+    int n=read(),m=read(),s=read();
+    for (int i=1;i&lt;n;i++)
+    {
+        int q=read(),w=read();
+        makeroot(s);
+        link(q,w);
+    }
+    while (m--)
+    {
+        int q=read(),w=read(); 
+        makeroot(s);
+        printf(&quot;%d\n&quot;,lca(q,w));
+    }
+    return 0;
+}
+</code></pre>
+        </div>
+      </div>
+    </div>
+  </div>
+</article>
+
+
+
+    <script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<!-- Footer -->
+<footer>
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+        <p class="copyright text-muted">
+          Theme By <a target="_blank" href="https://github.com/high-cold">High-Cold.</a>
+          Inspired By <a target="_blank" href="https://github.com/klugjo/hexo-theme-clean-blog">Clean Blog.</a>
+        <p class="copyright text-muted">
+          Powered By <a target="_blank" href="https://hexo.io/">Hexo.</a>
+        </p>
+		<span id="busuanzi_container_site_pv">
+		  本站总访问量 <span id="busuanzi_value_site_pv"></span> 次
+		</span>
+      </div>
+    </div>
+  </div>
+</footer>
+
+
+    <!-- After Footer Scripts -->
+<script src="/js/highlight.pack.js"></script>
+<script>
+  document.addEventListener("DOMContentLoaded", function(event) {
+    var codeBlocks = Array.prototype.slice.call(document.getElementsByTagName('pre'))
+    codeBlocks.forEach(function(block, index) {
+      hljs.highlightBlock(block);
+    });
+  });
+</script>
+
+  </body>
+</html>
+
