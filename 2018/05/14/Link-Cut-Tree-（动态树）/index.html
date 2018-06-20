@@ -8,7 +8,7 @@
   <meta name="description" content="">
   <meta name="author" content="high-cold">
   <!-- Open Graph Data -->
-  <meta property="og:title" content="LCA-Tarjan"/>
+  <meta property="og:title" content="Link Cut Tree （动态树）"/>
   <meta property="og:description" content="" />
   <meta property="og:site_name" content="High-Cold"/>
   <meta property="og:type" content="article" />
@@ -60,7 +60,7 @@
     <div class="row">
       <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
         <div class="page-title with-background-image">
-          <p class="title">LCA-Tarjan</p>
+          <p class="title">Link Cut Tree （动态树）</p>
           <p class="subtitle"></p>
         </div>
         <div class="site-menu with-background-image">
@@ -116,14 +116,14 @@
           
           <!-- Date -->
           <span class="date-time info">On
-            <span class="date">05/16/18</span>
+            <span class="date">05/14/18</span>
             <span class="time">20:14:19</span>
           </span>
           
           <!--  Categories  -->
             <span class="categories info">Under 
 
-<a href="/categories/LCA/">LCA</a>
+<a href="/categories/LCT/">LCT</a>
 </span>
           
         </div>
@@ -132,15 +132,28 @@
           <div class="post-tags text-muted">
             Tags: 
 
-<a class="tag" href="/tags/蒟蒻的LCA/">#蒟蒻的LCA</a>
+<a class="tag" href="/tags/蒟蒻的LCT/">#蒟蒻的LCT</a>
 
 
           </div>
         
         <!-- Post Main Content -->
         <div class="post-content">
-          <h3 id="Tarjan-求LCA-是一种十分优秀的离线算法（缺点就是必须离线），时间复杂度为-O-n-m-，小于树剖、倍增等方法。"><a href="#Tarjan-求LCA-是一种十分优秀的离线算法（缺点就是必须离线），时间复杂度为-O-n-m-，小于树剖、倍增等方法。" class="headerlink" title="Tarjan 求LCA 是一种十分优秀的离线算法（缺点就是必须离线），时间复杂度为 O(n+m)，小于树剖、倍增等方法。"></a>Tarjan 求LCA 是一种十分优秀的离线算法（缺点就是必须离线），时间复杂度为 O(n+m)，小于树剖、倍增等方法。</h3><a id="more"></a>
-<p>其保证时间复杂度的方法是在遍历树的时候记录已经走过的分支口，使得回溯的时候可以O(1)得出两个点的LCA。但是在开始前必须先将要求的点对进行排序，不然算法会退化。</p>
+          <h1 id="关于-LCT-Link-Cut-Tree"><a href="#关于-LCT-Link-Cut-Tree" class="headerlink" title="关于 LCT(Link-Cut-Tree)"></a>关于 LCT(Link-Cut-Tree)</h1><p>说难不难，总归是个板子；说简单也不简单，写法千变万化。总的来说就是把板子背熟，才能在考场上写的出来（但是貌似写的出来也看不出来 (～￣▽￣)～  ）</p>
+<a id="more"></a>
+<hr>
+<p>下面说说各个函数的作用：</p>
+<p>notroot：判断点x是不是其所在(实)链的顶点(根，亦或称在当前LCT中深度最小的点)</p>
+<p>pushr：翻转操作(其实就是个推标记的)</p>
+<p>pushup:将节点信息上传(一般是维护的信息)</p>
+<p>pushdown：将节点信息下放(一般是标记)</p>
+<p>rot、splay：。。。不要告诉我你不认识</p>
+<p>access：打通点x到当前LCT的根的一条实链</p>
+<p>makeroot：将x变为LCT的根</p>
+<p>findroot：寻找原树的根</p>
+<p>link：连接两个点</p>
+<p>cut：切断一条连边</p>
+<hr>
 <pre><code>#include &lt;algorithm&gt; //STL通用算法
 #include &lt;cmath&gt; //定义数学函数
 #include &lt;cstdio&gt; //定义输入/输出函数
@@ -152,6 +165,7 @@
 #define fro for
 #define ll long long
 #define reg register
+#define inf 1234567890
 /*#include &lt;bitset&gt; //STL位集容器
 #include &lt;cstype&gt; //字符处理
 #include &lt;cerrno&gt; //定义错误码
@@ -183,22 +197,22 @@
 
 using namespace std;
 
-int max(int x,int y){
-    return x&gt;y?x:y;
-}
+int ans;
 
-int min(int x,int y){
-    return x&lt;y?x:y;
-}
+int max(int x,int y){return x&gt;y?x:y;}
 
-int read(){
+int min(int x,int y){return x&lt;y?x:y;}
+
+int read()
+{
     int x=0,f=1;char ch=getchar();
     while (ch&lt;&apos;0&apos; || ch&gt;&apos;9&apos;){if (ch==&apos;-&apos;)f=-1;ch=getchar();}
     while (&apos;0&apos;&lt;=ch &amp;&amp; ch&lt;=&apos;9&apos;){x=x*10+(ch^48);ch=getchar();}
     return x*f;
 }
 
-void write(int x){
+void write(int x)
+{
     int buf[50];
     if (x&lt;0) putchar(&apos;-&apos;),x=-x;
     buf[0]=0;
@@ -207,73 +221,84 @@ void write(int x){
     while (buf[0]) putchar(&apos;0&apos;+buf[buf[0]--]);
 }
 
-int fir[5005000],to[1001000],ne[1001000],firp[5005000],as[1001000],nep[1001000];
-int ans[1001000],vis[5005000],f[5001000],fa[5005000]; 
-int n,m,s,e,q,a,b;
+int fa[300300],ch[300300][3],key[300300],sum[300300],lazy[300300];
+int stk[300300],top=0;
 
+int notroot(int x){return ch[fa[x]][0]==x||ch[fa[x]][1]==x;}
 
-void add(int u,int v)
+void pushr(int x){swap(ch[x][0],ch[x][1]);lazy[x]^=1;}
+
+void pushup(int x){sum[x]=sum[ch[x][0]]^sum[ch[x][1]]^key[x];}
+
+void pushdown(int x)
 {
-    to[++e]=v;
-    ne[e]=fir[u];
-    fir[u]=e;
-}
-
-void app(int x,int y)
-{
-    as[++q]=y;
-    nep[q]=firp[x];
-    firp[x]=q;
-}
-
-int find(int x)
-{
-    if(x!=fa[x]) fa[x]=find(fa[x]);
-    return fa[x];
-}
-
-void un(int x,int y)
-{
-    int xx=find(x);
-    int yy=find(y);
-    if(xx!=yy) fa[xx]=yy;
-}
-
-void tarjan(int x)
-{
-    for(int i=fir[x];i;i=ne[i])
+    if (lazy[x])
     {
-        int t=to[i];
-        if(t==f[x]) continue; 
-        f[t]=x;
-        tarjan(t);
-        un(t,x);
-        vis[t]=1;
-    }
-    for(int i=firp[x];i;i=nep[i])
-    {
-        int y=as[i];
-        if(vis[y]) ans[i]=find(y);
+        if (ch[x][0]) pushr(ch[x][0]);
+        if (ch[x][1]) pushr(ch[x][1]);
+        lazy[x]=0;
     }
 }
 
+void rot(int x)
+{
+    int y=fa[x],z=fa[y],k=ch[y][1]==x,w=ch[x][!k];
+    if (notroot(y)) ch[z][ch[z][1]==y]=x;
+    ch[x][!k]=y;ch[y][k]=w;
+    if (w) fa[w]=y;fa[y]=x;fa[x]=z;
+    pushup(y);
+}
+
+void splay(int x)
+{
+    int y=x,z;top=0;
+    stk[++top]=y;
+    while (notroot(y)) stk[++top]=y=fa[y];
+    while (top) pushdown(stk[top--]);
+    while (notroot(x))
+    {
+        y=fa[x],z=fa[y];
+        if (notroot(y))
+            rot((ch[y][0]==x)^(ch[z][0]==y)?x:y);
+        rot(x);
+    }
+    pushup(x);
+}
+
+void access(int x){for (int y=0;x;x=fa[y=x]) splay(x),ch[x][1]=y,pushup(x);}
+
+void makeroot(int x){access(x);splay(x);pushr(x);}
+
+int findroot(int x)
+{
+    access(x);splay(x);
+    while (ch[x][0]) pushdown(x),x=ch[x][0];
+    return x;
+}
+
+void split(int x,int y){makeroot(x);access(y);splay(y);}
+
+void link(int x,int y){makeroot(x);if (findroot(y)!=x) fa[x]=y;}
+
+void cut(int x,int y)
+{
+    makeroot(x);
+    if (findroot(y)==x&amp;&amp;fa[x]==y&amp;&amp;!ch[x][1])
+        fa[x]=ch[y][0]=0,pushup(y);
+}
 
 int main()
 {
-    n=read();m=read();s=read();
-    for(int i=1;i&lt;=n-1;i++)
-        a=read(),b=read(),add(a,b),add(b,a);
-
-    for(int i=1;i&lt;=m;i++)
-        a=read(),b=read(),app(a,b),app(b,a);
-
-    for(int i=1;i&lt;=n;i++) fa[i]=i,f[i]=i;
-
-    tarjan(s);
-
-    for(int i=1;i&lt;=m;i++)
-        printf(&quot;%d\n&quot;,max(ans[2*i],ans[2*i-1]));
-
+    int n=read(),m=read();
+    for (int i=1;i&lt;=n;i++) key[i]=read();
+    while (m--)
+    {
+        int q=read(),x=read(),y=read();
+        if (q==0) {split(x,y);printf(&quot;%d\n&quot;,sum[y]);}
+        if (q==1) link(x,y);
+        if (q==2) cut(x,y);
+        if (q==3) splay(x),key[x]=y;
+    }
     return 0;
 }
 </code></pre>
