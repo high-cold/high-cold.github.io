@@ -117,15 +117,166 @@
           <!-- Date -->
           <span class="date-time info">On
             <span class="date">05/16/18</span>
-            <span class="time">09:21:54</span>
+            <span class="time">19:10:45</span>
           </span>
+          
+          <!--  Categories  -->
+            <span class="categories info">Under 
+
+<a href="/categories/LCA/">LCA</a>
+</span>
           
         </div>
         <!-- Tags -->
         
+          <div class="post-tags text-muted">
+            Tags: 
+
+<a class="tag" href="/tags/蒟蒻的LCA/">#蒟蒻的LCA</a>
+
+
+          </div>
+        
         <!-- Post Main Content -->
         <div class="post-content">
-          
+          <h3 id="Tarjan-求LCA-是一种十分优秀的离线算法（缺点就是必须离线），时间复杂度为-O-n-m-，小于树剖、倍增等方法。"><a href="#Tarjan-求LCA-是一种十分优秀的离线算法（缺点就是必须离线），时间复杂度为-O-n-m-，小于树剖、倍增等方法。" class="headerlink" title="Tarjan 求LCA 是一种十分优秀的离线算法（缺点就是必须离线），时间复杂度为 O(n+m)，小于树剖、倍增等方法。"></a>Tarjan 求LCA 是一种十分优秀的离线算法（缺点就是必须离线），时间复杂度为 O(n+m)，小于树剖、倍增等方法。</h3><a id="more"></a>
+<p>其保证时间复杂度的方法是在遍历树的时候记录已经走过的分支口，使得回溯的时候可以O(1)得出两个点的LCA。但是在开始前必须先将要求的点对进行排序，不然算法会退化。</p>
+<pre><code>#include &lt;algorithm&gt; //STL通用算法
+#include &lt;cmath&gt; //定义数学函数
+#include &lt;cstdio&gt; //定义输入/输出函数
+#include &lt;iostream&gt; //数据流输入/输出
+#include &lt;cstring&gt; //字符串处理
+#include &lt;string&gt; //字符串类
+#include &lt;ctime&gt; //定义关于时间的函数
+#define itn int
+#define fro for
+#define ll long long
+#define reg register
+/*#include &lt;bitset&gt; //STL位集容器
+#include &lt;cstype&gt; //字符处理
+#include &lt;cerrno&gt; //定义错误码
+#include &lt;complex&gt; //复数类
+#include &lt;clocale&gt; //定义本地化函数
+#include &lt;cstdlib&gt; //定义杂项函数及内存分配函数
+#include &lt;deque&gt; //STL双端队列容器
+#include &lt;exception&gt; //异常处理类
+#include &lt;fstream&gt; //文件输入/输出
+#include &lt;functional&gt; //STL定义运算函数(代替运算符)
+#include &lt;limits&gt; //定义各种数据类型最值常量
+#include &lt;list&gt; //STL线性列表容器
+#include &lt;map&gt; //STL映射容器
+#include &lt;iomanip&gt; //参数化输入/输出
+#include &lt;ios&gt; //基本输入/输出支持
+#include &lt;iosfwd&gt; //输入/输出系统使用的前置声明
+#include &lt;istream&gt; //基本输入流
+#include &lt;ostream&gt; //基本输出流
+#include &lt;queue&gt; //STL队列容器
+#include &lt;set&gt; //STL集合容器
+#include &lt;sstream&gt; //基于字符串的流
+#include &lt;stack&gt; //STL堆栈容器
+#include &lt;stdexcept&gt; //标准异常类
+#include &lt;streambuf&gt; //底层输入/输出支持
+#include &lt;utility&gt; //STL通用模板类
+#include &lt;vector&gt; //STL动态数组容器
+#include &lt;cwchar.h&gt;//宽字符处理及输入/输出
+#include &lt;cwctype.h&gt; //宽字符分类*/
+
+using namespace std;
+
+int max(int x,int y){
+    return x&gt;y?x:y;
+}
+
+int min(int x,int y){
+    return x&lt;y?x:y;
+}
+
+int read(){
+    int x=0,f=1;char ch=getchar();
+    while (ch&lt;&apos;0&apos; || ch&gt;&apos;9&apos;){if (ch==&apos;-&apos;)f=-1;ch=getchar();}
+    while (&apos;0&apos;&lt;=ch &amp;&amp; ch&lt;=&apos;9&apos;){x=x*10+(ch^48);ch=getchar();}
+    return x*f;
+}
+
+void write(int x){
+    int buf[50];
+    if (x&lt;0) putchar(&apos;-&apos;),x=-x;
+    buf[0]=0;
+    while (x) buf[++buf[0]]=x%10,x/=10;
+    if (!buf[0]) buf[0]=1,buf[1]=0;
+    while (buf[0]) putchar(&apos;0&apos;+buf[buf[0]--]);
+}
+
+int fir[5005000],to[1001000],ne[1001000],firp[5005000],as[1001000],nep[1001000];
+int ans[1001000],vis[5005000],f[5001000],fa[5005000]; 
+int n,m,s,e,q,a,b;
+
+
+void add(int u,int v)
+{
+    to[++e]=v;
+    ne[e]=fir[u];
+    fir[u]=e;
+}
+
+void app(int x,int y)
+{
+    as[++q]=y;
+    nep[q]=firp[x];
+    firp[x]=q;
+}
+
+int find(int x)
+{
+    if(x!=fa[x]) fa[x]=find(fa[x]);
+    return fa[x];
+}
+
+void un(int x,int y)
+{
+    int xx=find(x);
+    int yy=find(y);
+    if(xx!=yy) fa[xx]=yy;
+}
+
+void tarjan(int x)
+{
+    for(int i=fir[x];i;i=ne[i])
+    {
+        int t=to[i];
+        if(t==f[x]) continue; 
+        f[t]=x;
+        tarjan(t);
+        un(t,x);
+        vis[t]=1;
+    }
+    for(int i=firp[x];i;i=nep[i])
+    {
+        int y=as[i];
+        if(vis[y]) ans[i]=find(y);
+    }
+}
+
+
+int main()
+{
+    n=read();m=read();s=read();
+    for(int i=1;i&lt;=n-1;i++)
+        a=read(),b=read(),add(a,b),add(b,a);
+
+    for(int i=1;i&lt;=m;i++)
+        a=read(),b=read(),app(a,b),app(b,a);
+
+    for(int i=1;i&lt;=n;i++) fa[i]=i,f[i]=i;
+
+    tarjan(s);
+
+    for(int i=1;i&lt;=m;i++)
+        printf(&quot;%d\n&quot;,max(ans[2*i],ans[2*i-1]));
+
+    return 0;
+}
+</code></pre>
         </div>
       </div>
     </div>
