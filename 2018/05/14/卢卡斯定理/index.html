@@ -8,7 +8,7 @@
   <meta name="description" content="">
   <meta name="author" content="high-cold">
   <!-- Open Graph Data -->
-  <meta property="og:title" content="LCA-树剖"/>
+  <meta property="og:title" content="卢卡斯定理"/>
   <meta property="og:description" content="" />
   <meta property="og:site_name" content="High-Cold"/>
   <meta property="og:type" content="article" />
@@ -61,7 +61,7 @@
     <div class="row">
       <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
         <div class="page-title with-background-image">
-          <p class="title">LCA-树剖</p>
+          <p class="title">卢卡斯定理</p>
           <p class="subtitle"></p>
         </div>
         <div class="site-menu with-background-image">
@@ -117,14 +117,14 @@
           
           <!-- Date -->
           <span class="date-time info">On
-            <span class="date">05/16/18</span>
+            <span class="date">05/14/18</span>
             <span class="time">19:27:06</span>
           </span>
           
           <!--  Categories  -->
             <span class="categories info">Under 
 
-<a href="/categories/LCA/">LCA</a>
+<a href="/categories/数论/">数论</a>
 </span>
           
         </div>
@@ -133,19 +133,22 @@
           <div class="post-tags text-muted">
             Tags: 
 
-<a class="tag" href="/tags/蒟蒻的LCA/">#蒟蒻的LCA</a>
+<a class="tag" href="/tags/蒟蒻的板子/">#蒟蒻的板子</a>
 
 
           </div>
         
         <!-- Post Main Content -->
         <div class="post-content">
-          <h3 id="树剖，全称树链剖分，其中已重链剖分较为常用（还有实链剖分，但是与此题无关）"><a href="#树剖，全称树链剖分，其中已重链剖分较为常用（还有实链剖分，但是与此题无关）" class="headerlink" title="树剖，全称树链剖分，其中已重链剖分较为常用（还有实链剖分，但是与此题无关）"></a>树剖，全称树链剖分，其中已重链剖分较为常用（还有实链剖分，但是与此题无关）</h3><a id="more"></a>
-<p>此题主要用到树剖的两个dfs所得的top,dfn(dep),size,fa,son数组。接着讲讲各个数组的含义。</p>
-<p>第一次dfs：<br>dfn(dep): 该点深度<br>size: 已该点为根的子树包含的节点个数<br>fa: 略<br>son: 该点子节点中size最大的(即最重的子节点)</p>
-<p>第二次dfs：<br><strong> top: 该点所在的链的顶端(深度最小的点) </strong></p>
-<p>然后每次将深度大的点往上跳一条链，直到两个点在同一链上。</p>
-<pre><code>#include &lt;algorithm&gt; //STL通用算法
+          <p>$1*1$</p>
+<h2 id="卢卡斯定理"><a href="#卢卡斯定理" class="headerlink" title="卢卡斯定理"></a>卢卡斯定理</h2><a id="more"></a>
+<p>这个定理，貌似只有组合数取模的时候可以用到，其他的没什么用(￣▽￣)~*</p>
+<p>so，背公式吧</p>
+<hr>
+<script type="math/tex; mode=display">
+\begin{eqnarray}
+C_m^n~~\%~~p=C_m/p^n/p~~*~~C_{m~\%~p}^{n~\%~p}~~\%~~p 
+\end{eqnarray}</script><pre><code>#include &lt;algorithm&gt; //STL通用算法
 #include &lt;cmath&gt; //定义数学函数
 #include &lt;cstdio&gt; //定义输入/输出函数
 #include &lt;iostream&gt; //数据流输入/输出
@@ -154,6 +157,7 @@
 #include &lt;ctime&gt; //定义关于时间的函数
 #define itn int
 #define fro for
+#define ll long long
 /*#include &lt;bitset&gt; //STL位集容器
 #include &lt;cstype&gt; //字符处理
 #include &lt;cerrno&gt; //定义错误码
@@ -202,8 +206,8 @@ int read(){
     return x*f;
 }
 
-void write(int x){
-    int buf[50];
+void write(ll x){
+    ll buf[50];
     if (x&lt;0) putchar(&#39;-&#39;),x=-x;
     buf[0]=0;
     while (x) buf[++buf[0]]=x%10,x/=10;
@@ -211,52 +215,23 @@ void write(int x){
     while (buf[0]) putchar(&#39;0&#39;+buf[buf[0]--]);
 }
 
-struct p{
-    int to,v,next;
-}e[10001000];
+ll a[101010],b[101010],p;
 
-int cnt;int last[10001000],dfn[10001000],son[10001000],top[10001000],size[10001000],fa[10001000];
-
-void add(int a,int b,int v){
-    e[++cnt]=(p){b,v,last[a]},last[a]=cnt;
-} 
-
-void dfs1(int x){
-    dfn[x]=dfn[fa[x]]+1;size[x]=1;
-    for(int i=last[x];i;i=e[i].next){
-        int to=e[i].to;
-        if(fa[x]!=to&amp;&amp;!fa[to]){
-            fa[to]=x;
-            dfs1(to);
-            size[x]+=size[to];
-            if(size[son[x]]&lt;size[to]) son[x]=to;
-        }
-    }
-}
-
-void dfs2(int x){
-    if(x==son[fa[x]])top[x]=top[fa[x]];
-    else top[x]=x;
-    for(int i=last[x];i;i=e[i].next)if(fa[e[i].to]==x) dfs2(e[i].to);
+ll cgm(int x,int y){
+    if(x&lt;y) return 0;
+    else if(x&lt;p) return b[x]*a[y]*a[x-y]%p;
+    else return cgm(x/p,y/p)*cgm(x%p,y%p)%p;
 }
 
 int main(){
-    int q,w;
-    int n=read(),m=read(),s=read();
-    for (int i=1;i&lt;=n-1;i++){
-        q=read();w=read();
-        add(q,w,0);add(w,q,0);
-    }
-    dfs1(s);
-    dfs2(s);
-    for (int i=1;i&lt;=m;i++){
-        int a=read(),b=read();
-        while (top[a]!=top[b]){
-            if (dfn[top[a]]&gt;dfn[top[b]]) a=fa[top[a]];
-            else b=fa[top[b]];
-        }
-        write(dfn[a]&lt;dfn[b]?a:b);
-        if (i!=m) putchar(&#39;\n&#39;);
+    int t=read();
+    for (int i=1;i&lt;=t;i++) {
+        ll n=read(),m=read();p=read();
+        a[0]=a[1]=b[0]=b[1]=1;
+        for(int i=2;i&lt;=n+m;i++) b[i]=b[i-1]*i%p;
+        for(int i=2;i&lt;=n+m;i++) a[i]=(p-p/i)*a[p%i]%p;
+        for(int i=2;i&lt;=n+m;i++) a[i]=a[i-1]*a[i]%p;
+        write(cgm(n+m,m)),putchar(&#39;\n&#39;);
     }
     return 0;
 }

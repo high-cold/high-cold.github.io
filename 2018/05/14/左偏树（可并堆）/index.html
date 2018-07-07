@@ -2,7 +2,7 @@
 <html>
   <!-- Html Head Tag-->
   <head>
-  <meta charset="UTF-8">
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="description" content="">
@@ -29,14 +29,15 @@
   
   <link rel="stylesheet" href="/css/style.light.css">
 
-  <!-- Google Analytics -->
+  <!-- Google Analytics --><!-- hexo-inject:begin --><!-- hexo-inject:end -->
   
 
 </head>
 
 
 <script src="//cdn.bootcss.com/pace/1.0.2/pace.min.js"></script>
-<link href="//cdn.bootcss.com/pace/1.0.2/themes/pink/pace-theme-flash.css" rel="stylesheet">
+<link href="//cdn.bootcss.com/pace/1.0.2/themes/pink/pace-theme-flash.css" rel="stylesheet"
+<link href="//cdn.staticfile.org/KaTeX/0.7.1/katex.min.css"rel="stylesheet">
 
 <style>
     .pace .pace-progress {
@@ -52,7 +53,7 @@
     }
   </style>
   <body>
-    <!-- Page Header -->
+    <!-- hexo-inject:begin --><!-- hexo-inject:end --><!-- Page Header -->
 
 
 <header class="site-header header-background" style="background-image: url(/img/default-banner-light.jpg)">
@@ -117,7 +118,7 @@
           <!-- Date -->
           <span class="date-time info">On
             <span class="date">05/14/18</span>
-            <span class="time">20:14:19</span>
+            <span class="time">19:27:06</span>
           </span>
           
           <!--  Categories  -->
@@ -225,19 +226,19 @@ void swap(int &amp;x,int &amp;y){int d=x;x=y;y=d;}
 int read()
 {
     int x=0,f=1;char ch=getchar();
-    while (ch&lt;&apos;0&apos; || ch&gt;&apos;9&apos;){if (ch==&apos;-&apos;)f=-1;ch=getchar();}
-    while (&apos;0&apos;&lt;=ch &amp;&amp; ch&lt;=&apos;9&apos;){x=x*10+(ch^48);ch=getchar();}
+    while (ch&lt;&#39;0&#39; || ch&gt;&#39;9&#39;){if (ch==&#39;-&#39;)f=-1;ch=getchar();}
+    while (&#39;0&#39;&lt;=ch &amp;&amp; ch&lt;=&#39;9&#39;){x=x*10+(ch^48);ch=getchar();}
     return x*f;
 }
 
 void write(int x)
 {
     int buf[50];
-    if (x&lt;0) putchar(&apos;-&apos;),x=-x;
+    if (x&lt;0) putchar(&#39;-&#39;),x=-x;
     buf[0]=0;
     while (x) buf[++buf[0]]=x%10,x/=10; 
     if (!buf[0]) buf[0]=1,buf[1]=0;
-    while (buf[0]) putchar(&apos;0&apos;+buf[buf[0]--]);
+    while (buf[0]) putchar(&#39;0&#39;+buf[buf[0]--]);
 }
 
 int fa[100100],dist[100100],Left[100100],Right[100100],key[100100];
@@ -333,7 +334,7 @@ int main(){
       hljs.highlightBlock(block);
     });
   });
-</script>
+</script><!-- hexo-inject:begin --><!-- hexo-inject:end -->
 
   </body>
 </html>
