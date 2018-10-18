@@ -1,0 +1,391 @@
+<!DOCTYPE html>
+<html>
+  <!-- Html Head Tag-->
+  <head>
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="">
+  <meta name="author" content="high-cold">
+  <!-- Open Graph Data -->
+  <meta property="og:title" content="基础分治练习题"/>
+  <meta property="og:description" content="" />
+  <meta property="og:site_name" content="High-Cold"/>
+  <meta property="og:type" content="article" />
+  <meta property="og:image" content="http://yoursite.com"/>
+  
+    <link rel="alternate" href="/atom.xml" title="High-Cold" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+
+  <!-- Site Title -->
+  <title>High-Cold</title>
+
+  <!-- Bootstrap CSS -->
+  <link rel="stylesheet" href="/css/bootstrap.min.css">
+  <!-- Custom CSS -->
+  
+  <link rel="stylesheet" href="/css/style.light.css">
+
+  <!-- Google Analytics --><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+  
+
+</head>
+
+
+<script src="//cdn.bootcss.com/pace/1.0.2/pace.min.js"></script>
+<link href="//cdn.bootcss.com/pace/1.0.2/themes/pink/pace-theme-flash.css" rel="stylesheet"
+<link href="//cdn.staticfile.org/KaTeX/0.7.1/katex.min.css"rel="stylesheet">
+
+<style>
+    .pace .pace-progress {
+    	background: #1E92FB; /*进度条颜色*/
+    	height: 3px;
+    }
+    .pace .pace-progress-inner {
+     	box-shadow: 0 0 10px #1E92FB, 0 0 5px #1E92FB; /*阴影颜色*/
+    }
+    .pace .pace-activity {
+    	border-top-color: #1E92FB;	/*上边框颜色*/
+    	border-left-color: #1E92FB;	/*左边框颜色*/
+    }
+  </style>
+  <body>
+    <!-- hexo-inject:begin --><!-- hexo-inject:end --><!-- Page Header -->
+
+
+<header class="site-header header-background" style="background-image: url(/img/default-banner-light.jpg)">
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+        <div class="page-title with-background-image">
+          <p class="title">基础分治练习题</p>
+          <p class="subtitle"></p>
+        </div>
+        <div class="site-menu with-background-image">
+          <ul>
+            
+              <li>
+                <a href="/">
+                  
+                  Home
+                  
+                </a>
+              </li>
+            
+              <li>
+                <a href="/archives">
+                  
+                  Archives
+                  
+                </a>
+              </li>
+            
+              <li>
+                <a href="https://github.com/high-cold">
+                  
+                  Github
+                  
+                </a>
+              </li>
+            
+              <li>
+                <a href="http://1286791085@qq.com">
+                  
+                  Email
+                  
+                </a>
+              </li>
+            
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</header>
+
+<article>
+  <div class="container typo">
+    <div class="row">
+      <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+        <div class="post-info text-muted">
+          
+            <!-- Author -->
+            <span class="author info">By high-cold</span>
+          
+          <!-- Date -->
+          <span class="date-time info">On
+            <span class="date">10/18/18</span>
+            <span class="time">17:58:11</span>
+          </span>
+          
+          <!--  Categories  -->
+            <span class="categories info">Under 
+
+<a href="/categories/NOIP2018赛前集训试题解析/">NOIP2018赛前集训试题解析</a>
+</span>
+          
+        </div>
+        <!-- Tags -->
+        
+          <div class="post-tags text-muted">
+            Tags: 
+
+<a class="tag" href="/tags/题解/">#题解</a>
+
+
+          </div>
+        
+        <!-- Post Main Content -->
+        <div class="post-content">
+          <h4 id="1-1-题目描述"><a href="#1-1-题目描述" class="headerlink" title="1.1 题目描述"></a><strong>1.1 题目描述</strong></h4><p>这是一道基础分治练习题。
+给你三个数列 {ai}, {bi}, {ci}，保证每个数列都恰好是一个排列。你需要求出满足 ai &lt; aj , bi &lt;
+bj , ci &lt; cj 的有序对 (i, j) 的数目。</p>
+<h4 id="1-2-输入格式"><a href="#1-2-输入格式" class="headerlink" title="1.2 输入格式"></a><strong>1.2 输入格式</strong></h4><p>从文件 cdq.in 中读入数据。
+数据的第一行包含一个正整数 n，表示数列的长度。接下来一行三个非负整数 SA, SB, SC。
+为了避免过量的输入对程序的运行效率产生影响，{ai}, {bi}, {ci} 由以下代码生成：</p>
+<pre><code><div class="highlight"><pre>const int N = 2e6+5;
+unsigned int SA,SB,SC;int n,a[N],b[N],c[N];
+unsigned int rd()
+{
+    SA^=SA&lt;&lt;16;SA^=SA&gt;&gt;5;SA^=SA&lt;&lt;1;
+    unsigned int t=SA;SA=SB;SB=SC;SC^=t^SA;return SC;
+}
+void gen(int *P)
+{
+    for (int i=1;i&lt;=n;++i) P[i]=i;
+    for (int i=1;i&lt;=n;++i) swap(P[i],P[1+rd()%n]);
+}
+int main()
+{
+    scanf("%d%u%u%u",&amp;n,&amp;SA,&amp;SB,&amp;SC);
+    gen(a);gen(b);gen(c);return 0;
+}</pre></div></code></pre><p>你可以在程序中自由运行这段代码。在下发文件中提供了这段代码的 cpp 文件，你可以选择直接在
+该 cpp 文件下编写程序，也可以假装看不见它。</p>
+<h4 id="1-3-输出格式"><a href="#1-3-输出格式" class="headerlink" title="1.3 输出格式"></a><strong>1.3 输出格式</strong></h4><p>输出到文件 cdq.out 中。
+输出一行一个正整数 ans，表示满足条件的有序对 (i, j) 的对数。</p>
+<h4 id="1-4-样例-1-输入"><a href="#1-4-样例-1-输入" class="headerlink" title="1.4 样例 1 输入"></a><strong>1.4 样例 1 输入</strong></h4><pre><code><div class="highlight"><pre>5
+233 666 667</pre></div></code></pre><h4 id="1-5-样例-1-输出"><a href="#1-5-样例-1-输出" class="headerlink" title="1.5 样例 1 输出"></a><strong>1.5 样例 1 输出</strong></h4><pre><code><div class="highlight"><pre>4</pre></div></code></pre><h4 id="1-6-样例-1-解释"><a href="#1-6-样例-1-解释" class="headerlink" title="1.6 样例 1 解释"></a><strong>1.6 样例 1 解释</strong></h4><p>生成的数列为 a = {1, 2, 3, 4, 5}, b = {1, 5, 3, 2, 4}, c = {3, 4, 2, 1, 5}。
+显然有且仅有 (1, 2),(1, 5),(3, 5),(4, 5) 这四个数对满足条件。</p>
+<h4 id="1-7-样例-2-输入"><a href="#1-7-样例-2-输入" class="headerlink" title="1.7 样例 2 输入"></a><strong>1.7 样例 2 输入</strong></h4><pre><code><div class="highlight"><pre>100000
+123 456 789</pre></div></code></pre><h4 id="1-8-样例-2-输出"><a href="#1-8-样例-2-输出" class="headerlink" title="1.8 样例 2 输出"></a><strong>1.8 样例 2 输出</strong></h4><pre><code><div class="highlight"><pre>1258889897</pre></div></code></pre><h4 id="1-9-子任务"><a href="#1-9-子任务" class="headerlink" title="1.9 子任务"></a><strong>1.9 子任务</strong></h4><p>对于 100% 的数据，保证 1 ≤ n ≤ 2 × 106, 1 ≤ SA, SB, SC ≤ 109。
+请注意常数因子对程序运行效率带来的影响。
+<img src="https://s1.ax1x.com/2018/10/18/iwGS4U.jpg" alt="iwGS4U.jpg"></p>
+<h4 id="1-10-提示"><a href="#1-10-提示" class="headerlink" title="1.10 提示"></a><strong>1.10 提示</strong></h4><p>加油！这是道水题！A 掉它</p>
+<hr>
+<hr>
+<p>  看到这道题的第一眼就是cdq分治。敲开心。然后。。。
+<img src="https://s1.ax1x.com/2018/10/18/iwJNe1.jpg" alt="iwJNe1.jpg"></p>
+<p> <del>总之，只要你常数足够优秀（大概八分之一），就可以用cdqA掉此题</del>
+    然后我们来看看这道神仙题到底在干什么。
+    根据1.2给出的输入生成程序，我们能一眼看出生成的三个数列其实并木有重复的元素，而且都小于等于n。也就是说，，这三个数列其实都是1~n的排列。
+    然后我们看看数据范围：2e6，只有O(n)和O(nlogn)两种实际意义的复杂度可以过。那么，我们能想到什么呢？<strong>二维偏序</strong>是nlogn的。所以，我们可以尝试将题目转成求二维偏序。
+    我们来看下面这三个东西：
+<img src="https://s1.ax1x.com/2018/10/18/iwJBWD.jpg" alt="iwJBWD.jpg">
+    明显，对于符合要求的数对，一定会在X,Y,Z中各别计算一次，而对于不符合要求的，只会在X,Y,Z中的一个里被计算一次。那么，我们可以得出：
+<img src="https://s1.ax1x.com/2018/10/18/iwJsQH.jpg" alt="iwJsQH.jpg">
+    这样，这道题就解决了。（然而我并不知道为什么我一个log还没有两个log快。。。）</p>
+<hr>
+<hr>
+<pre><code><div class="highlight"><pre>#include &lt;algorithm&gt; //STL¨ª¡§¨®???¡¤¡§
+#include &lt;cmath&gt; //?¡§¨°?¨ºy?¡ìo¡¥¨ºy
+#include &lt;cstdio&gt; //?¡§¨°?¨º?¨¨?/¨º?3?o¡¥¨ºy
+#include &lt;iostream&gt; //¨ºy?Y¨¢¡Â¨º?¨¨?/¨º?3?
+#include &lt;cstring&gt; //¡Á?¡¤?¡ä?¡ä|¨¤¨ª
+#include &lt;string&gt; //¡Á?¡¤?¡ä?¨¤¨¤
+#include &lt;ctime&gt; //?¡§¨°?1?¨®¨²¨º¡À??¦Ì?o¡¥¨ºy
+#define itn int
+#define fro for
+#define ll long long
+#define reg register
+#define inf 1234567890
+#define rep(i,a,b,c) for (int i=a;i&lt;=b;i+=c)
+#define lowbit(x) (x&amp;-x)
+/*#include &lt;bitset&gt; //STL???¡¥¨¨Y?¡Â
+#include &lt;cstype&gt; //¡Á?¡¤?¡ä|¨¤¨ª
+#include &lt;cerrno&gt; //?¡§¨°?¡ä¨ª?¨®??
+#include &lt;complex&gt; //?¡ä¨ºy¨¤¨¤
+#include &lt;clocale&gt; //?¡§¨°?¡À?¦Ì??¡¥o¡¥¨ºy
+#include &lt;cstdlib&gt; //?¡§¨°??¨®??o¡¥¨ºy?¡ã?¨²¡ä?¡¤???o¡¥¨ºy
+#include &lt;deque&gt; //STL?????¨®¨¢D¨¨Y?¡Â
+#include &lt;exception&gt; //¨°¨¬3¡ê¡ä|¨¤¨ª¨¤¨¤
+#include &lt;fstream&gt; //???t¨º?¨¨?/¨º?3?
+#include &lt;functional&gt; //STL?¡§¨°?????o¡¥¨ºy(¡ä¨²¨¬?????¡¤?)
+#include &lt;limits&gt; //?¡§¨°??¡Â??¨ºy?Y¨¤¨¤D¨ª¡Á??¦Ì3¡ê¨¢?
+#include &lt;list&gt; //STL??D?¨¢D¡À¨ª¨¨Y?¡Â
+#include &lt;map&gt; //STL¨®3¨¦?¨¨Y?¡Â
+#include &lt;iomanip&gt; //2?¨ºy?¡¥¨º?¨¨?/¨º?3?
+#include &lt;ios&gt; //?¨´¡À?¨º?¨¨?/¨º?3??¡ì3?
+#include &lt;iosfwd&gt; //¨º?¨¨?/¨º?3??¦Ì¨ª3¨º1¨®?¦Ì??¡ã??¨¦¨´?¡Â
+#include &lt;istream&gt; //?¨´¡À?¨º?¨¨?¨¢¡Â
+#include &lt;ostream&gt; //?¨´¡À?¨º?3?¨¢¡Â
+#include &lt;queue&gt; //STL?¨®¨¢D¨¨Y?¡Â
+#include &lt;set&gt; //STL?¡¥o?¨¨Y?¡Â
+#include &lt;sstream&gt; //?¨´¨®¨²¡Á?¡¤?¡ä?¦Ì?¨¢¡Â
+#include &lt;stack&gt; //STL????¨¨Y?¡Â
+#include &lt;stdexcept&gt; //¡À¨º¡Á?¨°¨¬3¡ê¨¤¨¤
+#include &lt;streambuf&gt; //¦Ì¡Á2?¨º?¨¨?/¨º?3??¡ì3?
+#include &lt;utility&gt; //STL¨ª¡§¨®??¡ê¡ã?¨¤¨¤
+#include &lt;vector&gt; //STL?¡¥¨¬?¨ºy¡Á¨¦¨¨Y?¡Â
+#include &lt;cwchar.h&gt;//?¨ª¡Á?¡¤?¡ä|¨¤¨ª?¡ã¨º?¨¨?/¨º?3?
+#include &lt;cwctype.h&gt; //?¨ª¡Á?¡¤?¡¤?¨¤¨¤*/
+
+using namespace std;
+
+int max(int x,int y){return x&gt;y?x:y;}
+
+int min(int x,int y){return x&lt;y?x:y;}
+
+int abs(int x){return x&gt;0?x:-x;}
+
+int gcd(int x,int y){return (!y)?x:gcd(y,x%y);}
+
+void exgcd(int a,int b,int &amp;d,int &amp;x,int &amp;y){if (!b){d=a,x=1,y=0;}else{exgcd(b,a%b,d,y,x);y-=x*(a/b);}}
+
+int quick_power(ll a,int b){ll r=1;for (;b;b&gt;&gt;=1,a=a*a)if (b&amp;1) r=r*a;return r;}
+
+int read()
+{
+    int x=0,f=1;char ch=getchar();
+    while (ch&lt;'0' || ch&gt;'9'){if (ch=='-')f=-1;ch=getchar();}
+    while ('0'&lt;=ch &amp;&amp; ch&lt;='9'){x=x*10+(ch^48);ch=getchar();}
+    return x*f;
+}
+
+void write(int x)
+{
+    int buf[50];
+    if (x&lt;0) putchar('-'),x=-x;
+    buf[0]=0;
+    while (x) buf[++buf[0]]=x%10,x/=10;
+    if (!buf[0]) buf[0]=1,buf[1]=0;
+    while (buf[0]) putchar('0'+buf[buf[0]--]);
+}
+
+//int find(int x){return fa[x]=fa[x]==x?x:find(fa[x]);}
+
+//void add(int x,int y,int z){to[++cnt]=y;v[cnt]=z;Next[cnt]=head[x];head[x]=cnt;}
+
+
+const int N=2002000;
+
+unsigned int SA,SB,SC;
+int n,A[N],B[N],C[N],v[N&lt;&lt;2];
+ll X,Y,Z;
+struct p{int x,y,z;} a[N];
+
+unsigned int rd()
+{
+    SA^=SA&lt;&lt;16;SA^=SA&gt;&gt;5;SA^=SA&lt;&lt;1;
+    unsigned int t=SA;SA=SB;SB=SC;SC^=t^SA;return SC;
+}
+void gen(int *P)
+{
+    for (reg int i=1;i&lt;=n;i++) P[i]=i;
+    for (reg int i=1;i&lt;=n;i++) swap(P[i],P[1+rd()%n]);
+}
+
+void into()
+{
+    n=read();SA=read(),SB=read(),SC=read();
+    gen(A);gen(B);gen(C);
+    for (int i=1;i&lt;=n;i+=8) 
+    {
+        a[i].x=A[i];
+        a[i+1].x=A[i+1];
+        a[i+2].x=A[i+2];
+        a[i+3].x=A[i+3];
+        a[i+4].x=A[i+4];
+        a[i+5].x=A[i+5];
+        a[i+6].x=A[i+6];
+        a[i+7].x=A[i+7];
+    }
+    for (int i=1;i&lt;=n;i+=8)
+    {
+        a[i].y=B[i];
+        a[i+1].y=B[i+1];
+        a[i+2].y=B[i+2];
+        a[i+3].y=B[i+3];
+        a[i+4].y=B[i+4];
+        a[i+5].y=B[i+5];
+        a[i+6].y=B[i+6];
+        a[i+7].y=B[i+7];
+    }
+    for (int i=1;i&lt;=n;i+=8)
+    {
+        a[i].z=C[i];
+        a[i+1].z=C[i+1];
+        a[i+2].z=C[i+2];
+        a[i+3].z=C[i+3];
+        a[i+4].z=C[i+4];
+        a[i+5].z=C[i+5];
+        a[i+6].z=C[i+6];
+        a[i+7].z=C[i+7];
+    }
+    return ;
+}
+
+void add(int x){for(;x&lt;=n;++v[x],x+=lowbit(x));}
+int query(int x){int ans=0;for(;x;ans+=v[x],x-=lowbit(x));return ans;}
+
+bool cmp1(const p &amp;x,const p &amp;y){return x.x&lt;y.x;}
+bool cmp2(const p &amp;x,const p &amp;y){return x.y&lt;y.y;}
+
+int main(){
+    into();
+    sort(a+1,a+n+1,cmp1);
+    memset(v,0,sizeof v);for (int i=1;i&lt;=n;i++){X+=query(a[i].y);add(a[i].y);}
+    memset(v,0,sizeof v);for (int i=1;i&lt;=n;i++){Y+=query(a[i].z);add(a[i].z);}
+    sort(a+1,a+n+1,cmp2);
+    memset(v,0,sizeof v);for (int i=1;i&lt;=n;i++){Z+=query(a[i].z);add(a[i].z);}
+    ll ans=X+Y+Z-(n-1)*n/2;
+    ans/=2;
+    cout&lt;&lt;ans;
+    return 0;
+}</pre></div></code></pre><p><del>请自动忽视头文件里的乱码</del></p>
+
+        </div>
+      </div>
+    </div>
+  </div>
+</article>
+
+
+
+    <script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<!-- Footer -->
+<footer>
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+        <p class="copyright text-muted">
+          Theme By <a target="_blank" href="https://github.com/high-cold">High-Cold.</a>
+          Inspired By <a target="_blank" href="https://github.com/klugjo/hexo-theme-clean-blog">Clean Blog.</a>
+        <p class="copyright text-muted">
+          Powered By <a target="_blank" href="https://hexo.io/">Hexo.</a>
+        </p>
+		<span id="busuanzi_container_site_pv">
+		  本站总访问量 <span id="busuanzi_value_site_pv"></span> 次
+		</span>
+      </div>
+    </div>
+  </div>
+</footer>
+
+
+    <!-- After Footer Scripts -->
+<script src="/js/highlight.pack.js"></script>
+<script>
+  document.addEventListener("DOMContentLoaded", function(event) {
+    var codeBlocks = Array.prototype.slice.call(document.getElementsByTagName('pre'))
+    codeBlocks.forEach(function(block, index) {
+      hljs.highlightBlock(block);
+    });
+  });
+</script><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+
+  </body>
+</html>
+
