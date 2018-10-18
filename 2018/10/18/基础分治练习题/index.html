@@ -118,7 +118,7 @@
           <!-- Date -->
           <span class="date-time info">On
             <span class="date">10/18/18</span>
-            <span class="time">17:58:11</span>
+            <span class="time">18:03:24</span>
           </span>
           
           <!--  Categories  -->
@@ -176,18 +176,17 @@ int main()
 <h4 id="1-10-提示"><a href="#1-10-提示" class="headerlink" title="1.10 提示"></a><strong>1.10 提示</strong></h4><p>加油！这是道水题！A 掉它</p>
 <hr>
 <hr>
-<p>  看到这道题的第一眼就是cdq分治。敲开心。然后。。。
-<img src="https://s1.ax1x.com/2018/10/18/iwJNe1.jpg" alt="iwJNe1.jpg"></p>
+<p>  看到这道题的第一眼就是cdq分治。敲开心。然后。。。</p>
+<p><img src="https://s1.ax1x.com/2018/10/18/iwJNe1.jpg" alt="iwJNe1.jpg"></p>
 <p> <del>总之，只要你常数足够优秀（大概八分之一），就可以用cdqA掉此题</del>
     然后我们来看看这道神仙题到底在干什么。
     根据1.2给出的输入生成程序，我们能一眼看出生成的三个数列其实并木有重复的元素，而且都小于等于n。也就是说，，这三个数列其实都是1~n的排列。
     然后我们看看数据范围：2e6，只有O(n)和O(nlogn)两种实际意义的复杂度可以过。那么，我们能想到什么呢？<strong>二维偏序</strong>是nlogn的。所以，我们可以尝试将题目转成求二维偏序。
-    我们来看下面这三个东西：
-<img src="https://s1.ax1x.com/2018/10/18/iwJBWD.jpg" alt="iwJBWD.jpg">
-    明显，对于符合要求的数对，一定会在X,Y,Z中各别计算一次，而对于不符合要求的，只会在X,Y,Z中的一个里被计算一次。那么，我们可以得出：
-<img src="https://s1.ax1x.com/2018/10/18/iwJsQH.jpg" alt="iwJsQH.jpg">
-    这样，这道题就解决了。（然而我并不知道为什么我一个log还没有两个log快。。。）</p>
-<hr>
+    我们来看下面这三个东西：</p>
+<p><img src="https://s1.ax1x.com/2018/10/18/iwJBWD.jpg" alt="iwJBWD.jpg"></p>
+<p>   明显，对于符合要求的数对，一定会在X,Y,Z中各别计算一次，而对于不符合要求的，只会在X,Y,Z中的一个里被计算一次。那么，我们可以得出：</p>
+<p><img src="https://s1.ax1x.com/2018/10/18/iwJsQH.jpg" alt="iwJsQH.jpg"></p>
+<pre><code><div class="highlight"><pre>这样，这道题就解决了。（然而我并不知道为什么我一个log还没有两个log快。。。）</pre></div></code></pre><hr>
 <hr>
 <pre><code><div class="highlight"><pre>#include &lt;algorithm&gt; //STL¨ª¡§¨®???¡¤¡§
 #include &lt;cmath&gt; //?¡§¨°?¨ºy?¡ìo¡¥¨ºy
