@@ -462,7 +462,7 @@ code {
 html,
 body {
   color: #555;
-  background-color: #fff;
+  background-color: $color-while;
   font-size: 100%; /* add PX (or original value) as backup */
   font-size: 100%;
 }
@@ -471,7 +471,7 @@ a {
 }
 a:hover {
   text-decoration: none;
-  color: #fff;
+  color: $color-while;
   background-color: #b27df4;
   transition: all 0.25s;
   cursor: pointer;
@@ -606,11 +606,11 @@ h6 {
   color: #b27df4;
 }
 .post-item-wrapper .date-and-category .categories {
-  color: #fff;
+  color: $color-while;
   background-color: #b27df4;
 }
 .post-item-wrapper .date-and-category .categories > a {
-  color: #fff;
+  color: $color-while;
   background-color: #b27df4;
 }
 .post-item-wrapper .tags {
@@ -730,12 +730,12 @@ footer {
 }
 .pagination > li > a {
   color: #b27df4;
-  background-color: #fff;
+  background-color: $color-while;
   border: 1px solid #b27df4;
   border-radius: 0.1875rem;
 }
 .pagination > li > a:hover {
-  color: #fff;
+  color: $color-while;
   background-color: #b27df4;
   border: 1px solid #b27df4;
 }
