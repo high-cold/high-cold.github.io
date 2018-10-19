@@ -52,26 +52,38 @@
 
         </div>
         <div class="content markdown">
-            <h1 id="左偏树-Leftist-Tree-是一种可并堆的实现。"><a href="#左偏树-Leftist-Tree-是一种可并堆的实现。" class="headerlink" title="左偏树(Leftist Tree)是一种可并堆的实现。"></a>左偏树(Leftist Tree)是一种可并堆的实现。</h1><p>左偏树相比于有两个额外的属性：键值和距离。<br><strong> 键值 </strong>是用于比较节点的大小。<br><strong> 距离 </strong>则是如下定义的：<br>节点i称为外节点(external node)，当且仅当节点i的左子树或右子树为空(left(i)=NULL或right(i)=NULL)。<br>节点i的距离(dist(i))是节点i到它的后代中，最近的外节点所经过的边数。<br>特别的，如果节点i本身是外节点，则它的距离为0；而空节点的距离规定为-1 (dist(NULL)=-1)。</p>
+            <h1 id="左偏树-Leftist-Tree-是一种可并堆的实现。"><a href="#左偏树-Leftist-Tree-是一种可并堆的实现。" class="headerlink" title="左偏树(Leftist Tree)是一种可并堆的实现。"></a>左偏树(Leftist Tree)是一种可并堆的实现。</h1><p>左偏树相比于有两个额外的属性：键值和距离。
+<strong> 键值 </strong>是用于比较节点的大小。
+<strong> 距离 </strong>则是如下定义的：
+节点i称为外节点(external node)，当且仅当节点i的左子树或右子树为空(left(i)=NULL或right(i)=NULL)。
+节点i的距离(dist(i))是节点i到它的后代中，最近的外节点所经过的边数。
+特别的，如果节点i本身是外节点，则它的距离为0；而空节点的距离规定为-1 (dist(NULL)=-1)。</p>
 <a id="more"></a>
 <p>左偏树满足下面两条基本性质：</p>
 <p>[性质1] 节点的键值小于或等于它的左右子节点的键值。即key(i)≤key(parent(i))</p>
-<h5 id="性质2-节点的左子节点的距离不小于右子节点的距离。即dist-left-i-≥dist-right-i"><a href="#性质2-节点的左子节点的距离不小于右子节点的距离。即dist-left-i-≥dist-right-i" class="headerlink" title="[性质2] 节点的左子节点的距离不小于右子节点的距离。即dist(left(i))≥dist(right(i))"></a>[性质2] 节点的左子节点的距离不小于右子节点的距离。即dist(left(i))≥dist(right(i))</h5><p>这两条性质是对每一个节点而言的，因此可以简单地从中得出，左偏树的左右子树都是左偏树。<br>由这两条性质，我们可以得出左偏树的定义：左偏树是具有左偏性质的堆有序二叉树。</p>
-<p>下图是一棵左偏树：<br><img src="https://s1.ax1x.com/2018/05/16/CyMnNF.png" alt=""></p>
+<h5 id="性质2-节点的左子节点的距离不小于右子节点的距离。即dist-left-i-≥dist-right-i"><a href="#性质2-节点的左子节点的距离不小于右子节点的距离。即dist-left-i-≥dist-right-i" class="headerlink" title="[性质2] 节点的左子节点的距离不小于右子节点的距离。即dist(left(i))≥dist(right(i))"></a>[性质2] 节点的左子节点的距离不小于右子节点的距离。即dist(left(i))≥dist(right(i))</h5><p>这两条性质是对每一个节点而言的，因此可以简单地从中得出，左偏树的左右子树都是左偏树。
+由这两条性质，我们可以得出左偏树的定义：左偏树是具有左偏性质的堆有序二叉树。</p>
+<p>下图是一棵左偏树：
+<img src="https://s1.ax1x.com/2018/05/16/CyMnNF.png" alt=""></p>
 <p>[性质3] 节点的距离等于它的右子节点的距离加1。即dist(i)=dist(right(i))+1。</p>
-<p>左偏树并不是为了快速访问所有的节点而设计的，它的目的是快速访问最小节点以及在对树修改后快速的恢复堆性质。<br>从图中我们可以看到它并不平衡，由于性质2的缘故，它的结构偏向左侧，不过距离的概念和树的深度并不同，左偏树并不意味着<strong> 左子树的节点数或是深度一定大于右子树。 </strong></p>
+<p>左偏树并不是为了快速访问所有的节点而设计的，它的目的是快速访问最小节点以及在对树修改后快速的恢复堆性质。
+从图中我们可以看到它并不平衡，由于性质2的缘故，它的结构偏向左侧，不过距离的概念和树的深度并不同，左偏树并不意味着<strong> 左子树的节点数或是深度一定大于右子树。 </strong></p>
 <p>下面我们来讨论左偏树的距离和节点数的关系。</p>
-<p><strong> [引理1] </strong> 若左偏树的距离为一定值，则节点数最少的左偏树是完全二叉树。<br>证明：由性质2可知，当且仅当对于一棵左偏树中的每个节点i，都有dist(left(i))=dist(right(i))时，该左偏树的节点数最少。显然具有这样性质的二叉树是完全二叉树。</p>
-<p><strong> [定理1] </strong> 若一棵左偏树的距离为k，则这棵左偏树至少有2^(k+1)-1个节点。<br>证明：由引理1可知，当这样的左偏树节点数最少的时候，是一棵完全二叉树。距离为k的完全二叉树高度也为k，节点数为2^(k+1)-1，所以距离为k的左偏树至少有2k＋1-1个节点。</p>
+<p><strong> [引理1] </strong> 若左偏树的距离为一定值，则节点数最少的左偏树是完全二叉树。
+证明：由性质2可知，当且仅当对于一棵左偏树中的每个节点i，都有dist(left(i))=dist(right(i))时，该左偏树的节点数最少。显然具有这样性质的二叉树是完全二叉树。</p>
+<p><strong> [定理1] </strong> 若一棵左偏树的距离为k，则这棵左偏树至少有2^(k+1)-1个节点。
+证明：由引理1可知，当这样的左偏树节点数最少的时候，是一棵完全二叉树。距离为k的完全二叉树高度也为k，节点数为2^(k+1)-1，所以距离为k的左偏树至少有2k＋1-1个节点。</p>
 <p>作为定理1的推论，我们有：</p>
 <p>[性质4] 一棵N个节点的左偏树距离最多为O(log(N+1)-1)。</p>
 <p>有了上面的4个性质，我们可以开始讨论左偏树的操作了。</p>
-<h2 id="左偏树的合并"><a href="#左偏树的合并" class="headerlink" title="左偏树的合并"></a>左偏树的合并</h2><p>C ← Merge(A,B)<br>把A,B两棵左偏树合并，返回一棵新的左偏树C，包含A和B中的所有元素。在本文中，一棵左偏树用它的根节点的指针表示。</p>
+<h2 id="左偏树的合并"><a href="#左偏树的合并" class="headerlink" title="左偏树的合并"></a>左偏树的合并</h2><p>C ← Merge(A,B)
+把A,B两棵左偏树合并，返回一棵新的左偏树C，包含A和B中的所有元素。在本文中，一棵左偏树用它的根节点的指针表示。</p>
 <p>在合并操作中，最简单的情况是其中一棵树为空（也就是，该树根节点指针为NULL）。这时我们只须要返回另一棵树。</p>
 <p>若A和B都非空，我们假设A的根节点小于等于B的根节点（否则交换A,B），把A的根节点作为新树C的根节点，剩下的事就是合并A的右子树right(A)和B了。</p>
 <p>right(A) ← Merge(right(A),B)</p>
 <p>为了维护左偏性质，若dist(left(A))&gt;dist(right(A))，交换left(A)和right(A)。</p>
-<p>最后，由于right(A) 的距离可能发生改变，我们必须更新A的距离：<br>dist(A) ← dist(right(A)) + 1</p>
+<p>最后，由于right(A) 的距离可能发生改变，我们必须更新A的距离：
+dist(A) ← dist(right(A)) + 1</p>
 <p>于是合并就完成了。</p>
 <p>下图是一个合并过程的示例：</p>
 <p><img src="https://s1.ax1x.com/2018/05/16/CyMQ39.png" alt=""></p>
@@ -81,10 +93,11 @@
 <p>由于删除最小节点后只需进行一次合并，因此删除最小节点的时间复杂度也为O(logn)。</p>
 <h2 id="左偏树的构建"><a href="#左偏树的构建" class="headerlink" title="左偏树的构建"></a>左偏树的构建</h2><p>将n个节点构建成一棵左偏树，这也是一个常用的操作。</p>
 <p>算法一  暴力算法——逐个节点插入，时间复杂度为O(nlogn)。</p>
-<p>算法二  仿照二叉堆的构建算法，我们可以得到下面这种算法：<br>    将n个节点（每个节点作为一棵左偏树）放入先进先出队列。不断地从队首取出两棵左偏树，将它们合并之后加入队尾。当队列中只剩下一棵左偏树时，算法结束，时间复杂度为O(n)。</p>
+<p>算法二  仿照二叉堆的构建算法，我们可以得到下面这种算法：
+    将n个节点（每个节点作为一棵左偏树）放入先进先出队列。不断地从队首取出两棵左偏树，将它们合并之后加入队尾。当队列中只剩下一棵左偏树时，算法结束，时间复杂度为O(n)。</p>
 <p><img src="https://s1.ax1x.com/2018/05/16/CyMcE8.png" alt=""></p>
 <p>代码如下：</p>
-<pre><code>#include &lt;algorithm&gt; //STL通用算法
+<pre><code><div class="highlight"><pre>#include &lt;algorithm&gt; //STL通用算法
 #include &lt;cmath&gt; //定义数学函数
 #include &lt;cstdio&gt; //定义输入/输出函数
 #include &lt;iostream&gt; //数据流输入/输出
@@ -138,19 +151,19 @@ void swap(int &amp;x,int &amp;y){int d=x;x=y;y=d;}
 int read()
 {
     int x=0,f=1;char ch=getchar();
-    while (ch&lt;&#39;0&#39; || ch&gt;&#39;9&#39;){if (ch==&#39;-&#39;)f=-1;ch=getchar();}
-    while (&#39;0&#39;&lt;=ch &amp;&amp; ch&lt;=&#39;9&#39;){x=x*10+(ch^48);ch=getchar();}
+    while (ch&lt;'0' || ch&gt;'9'){if (ch=='-')f=-1;ch=getchar();}
+    while ('0'&lt;=ch &amp;&amp; ch&lt;='9'){x=x*10+(ch^48);ch=getchar();}
     return x*f;
 }
 
 void write(int x)
 {
     int buf[50];
-    if (x&lt;0) putchar(&#39;-&#39;),x=-x;
+    if (x&lt;0) putchar('-'),x=-x;
     buf[0]=0;
     while (x) buf[++buf[0]]=x%10,x/=10; 
     if (!buf[0]) buf[0]=1,buf[1]=0;
-    while (buf[0]) putchar(&#39;0&#39;+buf[buf[0]--]);
+    while (buf[0]) putchar('0'+buf[buf[0]--]);
 }
 
 int fa[100100],dist[100100],Left[100100],Right[100100],key[100100];
@@ -196,18 +209,17 @@ int main(){
         if (q==2)
         {
             int x=read();
-            if (key[x]==-1) printf(&quot;-1\n&quot;);
+            if (key[x]==-1) printf("-1\n");
             else 
             {
                 x=find(x);
-                printf(&quot;%d\n&quot;,key[x]);
+                printf("%d\n",key[x]);
                 Delete(x);
             }
         }
     }
     return 0;
-}
-</code></pre>
+}</pre></div></code></pre>
             <!--[if lt IE 9]><script>document.createElement('audio');</script><![endif]-->
             <audio id="audio" loop="1" preload="auto" controls="controls" data-autoplay="true">
                 <source type="audio/mpeg" src="">
