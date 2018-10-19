@@ -11,9 +11,7 @@
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
     <meta name="google" content="notranslate" />
     <meta name="keywords" content="Fechin,"> 
-    <meta name="description" content="1.1 题目描述这是一道基础分治练习题。
-给你三个数列 {ai}, {bi}, {ci}，保证每个数列都恰好是一个排列。你需要求出满足 ai &amp;lt; aj , bi &amp;lt;
-bj , ci &amp;l,"> 
+    <meta name="description" content="1.1 题目描述这是一道基础分治练习题。给你三个数列 {ai}, {bi}, {ci}，保证每个数列都恰好是一个排列。你需要求出满足 ai &amp;lt; aj , bi &amp;lt;bj , ci &amp;lt;,"> 
     <meta name="author" content="high-cold"> 
     <link rel="alternative" href="atom.xml" title="High-Cold" type="application/atom+xml"> 
     <link rel="icon" href="/img/favicon.png"> 
@@ -69,7 +67,7 @@ bj , ci &amp;l,">
 <p>link：连接两个点</p>
 <p>cut：切断一条连边</p>
 <hr>
-<pre><code><div class="highlight"><pre>#include &lt;algorithm&gt; //STL通用算法
+<pre><code>#include &lt;algorithm&gt; //STL通用算法
 #include &lt;cmath&gt; //定义数学函数
 #include &lt;cstdio&gt; //定义输入/输出函数
 #include &lt;iostream&gt; //数据流输入/输出
@@ -121,19 +119,19 @@ int min(int x,int y){return x&lt;y?x:y;}
 int read()
 {
     int x=0,f=1;char ch=getchar();
-    while (ch&lt;'0' || ch&gt;'9'){if (ch=='-')f=-1;ch=getchar();}
-    while ('0'&lt;=ch &amp;&amp; ch&lt;='9'){x=x*10+(ch^48);ch=getchar();}
+    while (ch&lt;&#39;0&#39; || ch&gt;&#39;9&#39;){if (ch==&#39;-&#39;)f=-1;ch=getchar();}
+    while (&#39;0&#39;&lt;=ch &amp;&amp; ch&lt;=&#39;9&#39;){x=x*10+(ch^48);ch=getchar();}
     return x*f;
 }
 
 void write(int x)
 {
     int buf[50];
-    if (x&lt;0) putchar('-'),x=-x;
+    if (x&lt;0) putchar(&#39;-&#39;),x=-x;
     buf[0]=0;
     while (x) buf[++buf[0]]=x%10,x/=10;
     if (!buf[0]) buf[0]=1,buf[1]=0;
-    while (buf[0]) putchar('0'+buf[buf[0]--]);
+    while (buf[0]) putchar(&#39;0&#39;+buf[buf[0]--]);
 }
 
 int fa[300300],ch[300300][3],key[300300],sum[300300],lazy[300300];
@@ -209,13 +207,14 @@ int main()
     while (m--)
     {
         int q=read(),x=read(),y=read();
-        if (q==0) {split(x,y);printf("%d\n",sum[y]);}
+        if (q==0) {split(x,y);printf(&quot;%d\n&quot;,sum[y]);}
         if (q==1) link(x,y);
         if (q==2) cut(x,y);
         if (q==3) splay(x),key[x]=y;
     }
     return 0;
-}</pre></div></code></pre>
+}
+</code></pre>
             <!--[if lt IE 9]><script>document.createElement('audio');</script><![endif]-->
             <audio id="audio" loop="1" preload="auto" controls="controls" data-autoplay="true">
                 <source type="audio/mpeg" src="">

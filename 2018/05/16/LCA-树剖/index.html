@@ -11,9 +11,7 @@
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
     <meta name="google" content="notranslate" />
     <meta name="keywords" content="Fechin,"> 
-    <meta name="description" content="1.1 题目描述这是一道基础分治练习题。
-给你三个数列 {ai}, {bi}, {ci}，保证每个数列都恰好是一个排列。你需要求出满足 ai &amp;lt; aj , bi &amp;lt;
-bj , ci &amp;l,"> 
+    <meta name="description" content="1.1 题目描述这是一道基础分治练习题。给你三个数列 {ai}, {bi}, {ci}，保证每个数列都恰好是一个排列。你需要求出满足 ai &amp;lt; aj , bi &amp;lt;bj , ci &amp;lt;,"> 
     <meta name="author" content="high-cold"> 
     <link rel="alternative" href="atom.xml" title="High-Cold" type="application/atom+xml"> 
     <link rel="icon" href="/img/favicon.png"> 
@@ -56,15 +54,10 @@ bj , ci &amp;l,">
         <div class="content markdown">
             <h3 id="树剖，全称树链剖分，其中已重链剖分较为常用（还有实链剖分，但是与此题无关）"><a href="#树剖，全称树链剖分，其中已重链剖分较为常用（还有实链剖分，但是与此题无关）" class="headerlink" title="树剖，全称树链剖分，其中已重链剖分较为常用（还有实链剖分，但是与此题无关）"></a>树剖，全称树链剖分，其中已重链剖分较为常用（还有实链剖分，但是与此题无关）</h3><a id="more"></a>
 <p>此题主要用到树剖的两个dfs所得的top,dfn(dep),size,fa,son数组。接着讲讲各个数组的含义。</p>
-<p>第一次dfs：
-dfn(dep): 该点深度
-size: 已该点为根的子树包含的节点个数
-fa: 略
-son: 该点子节点中size最大的(即最重的子节点)</p>
-<p>第二次dfs：
-<strong> top: 该点所在的链的顶端(深度最小的点) </strong></p>
+<p>第一次dfs：<br>dfn(dep): 该点深度<br>size: 已该点为根的子树包含的节点个数<br>fa: 略<br>son: 该点子节点中size最大的(即最重的子节点)</p>
+<p>第二次dfs：<br><strong> top: 该点所在的链的顶端(深度最小的点) </strong></p>
 <p>然后每次将深度大的点往上跳一条链，直到两个点在同一链上。</p>
-<pre><code><div class="highlight"><pre>#include &lt;algorithm&gt; //STL通用算法
+<pre><code>#include &lt;algorithm&gt; //STL通用算法
 #include &lt;cmath&gt; //定义数学函数
 #include &lt;cstdio&gt; //定义输入/输出函数
 #include &lt;iostream&gt; //数据流输入/输出
@@ -116,18 +109,18 @@ int min(int x,int y){
 
 int read(){
     int x=0,f=1;char ch=getchar();
-    while (ch&lt;'0' || ch&gt;'9'){if (ch=='-')f=-1;ch=getchar();}
-    while ('0'&lt;=ch &amp;&amp; ch&lt;='9'){x=(x&lt;&lt;3)+(x&lt;&lt;1)+(ch^48);ch=getchar();}
+    while (ch&lt;&#39;0&#39; || ch&gt;&#39;9&#39;){if (ch==&#39;-&#39;)f=-1;ch=getchar();}
+    while (&#39;0&#39;&lt;=ch &amp;&amp; ch&lt;=&#39;9&#39;){x=(x&lt;&lt;3)+(x&lt;&lt;1)+(ch^48);ch=getchar();}
     return x*f;
 }
 
 void write(int x){
     int buf[50];
-    if (x&lt;0) putchar('-'),x=-x;
+    if (x&lt;0) putchar(&#39;-&#39;),x=-x;
     buf[0]=0;
     while (x) buf[++buf[0]]=x%10,x/=10;
     if (!buf[0]) buf[0]=1,buf[1]=0;
-    while (buf[0]) putchar('0'+buf[buf[0]--]);
+    while (buf[0]) putchar(&#39;0&#39;+buf[buf[0]--]);
 }
 
 struct p{
@@ -175,10 +168,11 @@ int main(){
             else b=fa[top[b]];
         }
         write(dfn[a]&lt;dfn[b]?a:b);
-        if (i!=m) putchar('\n');
+        if (i!=m) putchar(&#39;\n&#39;);
     }
     return 0;
-}</pre></div></code></pre>
+}
+</code></pre>
             <!--[if lt IE 9]><script>document.createElement('audio');</script><![endif]-->
             <audio id="audio" loop="1" preload="auto" controls="controls" data-autoplay="true">
                 <source type="audio/mpeg" src="">
