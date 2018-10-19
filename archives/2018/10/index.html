@@ -1,175 +1,88 @@
+
 <!DOCTYPE html>
-<html>
-  <!-- Html Head Tag-->
-  <head>
-  <!-- hexo-inject:begin --><!-- hexo-inject:end --><meta charset="UTF-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="description" content="">
-  <meta name="author" content="high-cold">
-  <!-- Open Graph Data -->
-  <meta property="og:title" content="High-Cold"/>
-  <meta property="og:description" content="" />
-  <meta property="og:site_name" content="High-Cold"/>
-  <meta property="og:type" content="website" />
-  <meta property="og:image" content="http://yoursite.com"/>
-  
-    <link rel="alternate" href="/atom.xml" title="High-Cold" type="application/atom+xml">
-  
-  
-    <link rel="icon" href="/favicon.png">
-  
+<html lang="zh_CN" class="loading">
+<head>
+    <!-- hexo-inject:begin --><!-- hexo-inject:end --><meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <meta name="viewport" content="width=device-width, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>High-Cold - 一个经常GG的人</title>
 
-  <!-- Site Title -->
-  <title>High-Cold</title>
-
-  <!-- Bootstrap CSS -->
-  <link rel="stylesheet" href="/css/bootstrap.min.css">
-  <!-- Custom CSS -->
-  
-  <link rel="stylesheet" href="/css/style.light.css">
-
-  <!-- Google Analytics --><!-- hexo-inject:begin --><!-- hexo-inject:end -->
-  
-
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="google" content="notranslate" />
+    <meta name="keywords" content="Fechin,"> 
+    <meta name="description" content="1.1 题目描述这是一道基础分治练习题。
+给你三个数列 {ai}, {bi}, {ci}，保证每个数列都恰好是一个排列。你需要求出满足 ai &amp;lt; aj , bi &amp;lt;
+bj , ci &amp;l,"> 
+    <meta name="author" content="high-cold"> 
+    <link rel="alternative" href="atom.xml" title="High-Cold" type="application/atom+xml"> 
+    <link rel="icon" href="/img/favicon.png"> 
+    <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.css">
+    <link rel="stylesheet" href="/css/diaspora.css"><!-- hexo-inject:begin --><!-- hexo-inject:end -->
 </head>
 
+<body class="loading">
+    <!-- hexo-inject:begin --><!-- hexo-inject:end --><div id="loader"></div><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+    
+</body>
+<script src="//cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js"></script>
+<script src="//lib.baomitu.com/jquery/1.8.3/jquery.min.js"></script>
+<script src="/js/plugin.js"></script>
+<script src="/js/diaspora.js"></script>
+<link rel="stylesheet" href="/photoswipe/photoswipe.css">
+<link rel="stylesheet" href="/photoswipe/default-skin/default-skin.css">
+<script src="/photoswipe/photoswipe.min.js"></script>
+<script src="/photoswipe/photoswipe-ui-default.min.js"></script>
 
-<script src="//cdn.bootcss.com/pace/1.0.2/pace.min.js"></script>
-<link href="//cdn.bootcss.com/pace/1.0.2/themes/pink/pace-theme-flash.css" rel="stylesheet"
-<link href="//cdn.staticfile.org/KaTeX/0.7.1/katex.min.css"rel="stylesheet">
-
-<style>
-    .pace .pace-progress {
-    	background: #1E92FB; /*进度条颜色*/
-    	height: 3px;
-    }
-    .pace .pace-progress-inner {
-     	box-shadow: 0 0 10px #1E92FB, 0 0 5px #1E92FB; /*阴影颜色*/
-    }
-    .pace .pace-activity {
-    	border-top-color: #1E92FB;	/*上边框颜色*/
-    	border-left-color: #1E92FB;	/*左边框颜色*/
-    }
-  </style>
-  <body>
-    <!-- hexo-inject:begin --><!-- hexo-inject:end --><!-- Archive Header -->
-<!-- Page Header -->
-
-
-<header class="site-header header-background" style="background-image: url(/img/default-banner-light.jpg)">
-  <div class="container">
-    <div class="row">
-      <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
-        <div class="page-title with-background-image">
-          <p class="title">Blog Archives</p>
-          <p class="subtitle"></p>
+<!-- Root element of PhotoSwipe. Must have class pswp. -->
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+    <!-- Background of PhotoSwipe. 
+         It's a separate element as animating opacity is faster than rgba(). -->
+    <div class="pswp__bg"></div>
+    <!-- Slides wrapper with overflow:hidden. -->
+    <div class="pswp__scroll-wrap">
+        <!-- Container that holds slides. 
+            PhotoSwipe keeps only 3 of them in the DOM to save memory.
+            Don't modify these 3 pswp__item elements, data is added later on. -->
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
         </div>
-        <div class="site-menu with-background-image">
-          <ul>
-            
-              <li>
-                <a href="/">
-                  
-                  Home
-                  
-                </a>
-              </li>
-            
-              <li>
-                <a href="/archives">
-                  
-                  Archives
-                  
-                </a>
-              </li>
-            
-              <li>
-                <a href="https://github.com/high-cold">
-                  
-                  Github
-                  
-                </a>
-              </li>
-            
-              <li>
-                <a href="http://1286791085@qq.com">
-                  
-                  Email
-                  
-                </a>
-              </li>
-            
-          </ul>
+        <!-- Default (PhotoSwipeUI_Default) interface on top of sliding area. Can be changed. -->
+        <div class="pswp__ui pswp__ui--hidden">
+            <div class="pswp__top-bar">
+                <!--  Controls are self-explanatory. Order can be changed. -->
+                <div class="pswp__counter"></div>
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+                <button class="pswp__button pswp__button--share" title="Share"></button>
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+                <!-- Preloader demo http://codepen.io/dimsemenov/pen/yyBWoR -->
+                <!-- element will get class pswp__preloader--active when preloader is running -->
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                      <div class="pswp__preloader__cut">
+                        <div class="pswp__preloader__donut"></div>
+                      </div>
+                    </div>
+                </div>
+            </div>
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div> 
+            </div>
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
         </div>
-      </div>
     </div>
-  </div>
-</header>
-
-<!-- Archive List -->
-<div class="container">
-  <div class="row">
-    <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
-      
-        <div class="archive-item">
-  <a href="/2018/10/18/基础分治练习题/" class="post-title">
-    基础分治练习题
-  </a>
-  <div class="date text-muted">Posted on 10/18/18 17:13:22</div>
-</div>
-
-      
-
-    </div>
-  </div>
-</div>
-<!-- Pagination -->
-<div class="container">
-  <div class="row">
-    <div class="col-lg-10 col-md-10 col-md-offset-1">
-      <ul class="pagination">
-          
-          
-      </ul>
-    </div>
-  </div>
 </div>
 
 
 
-    <script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
-<!-- Footer -->
-<footer>
-  <div class="container">
-    <div class="row">
-      <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
-        <p class="copyright text-muted">
-          Theme By <a target="_blank" href="https://github.com/high-cold">High-Cold.</a>
-          Inspired By <a target="_blank" href="https://github.com/klugjo/hexo-theme-clean-blog">Clean Blog.</a>
-        <p class="copyright text-muted">
-          Powered By <a target="_blank" href="https://hexo.io/">Hexo.</a>
-        </p>
-		<span id="busuanzi_container_site_pv">
-		  本站总访问量 <span id="busuanzi_value_site_pv"></span> 次
-		</span>
-      </div>
-    </div>
-  </div>
-</footer>
 
-
-    <!-- After Footer Scripts -->
-<script src="/js/highlight.pack.js"></script>
-<script>
-  document.addEventListener("DOMContentLoaded", function(event) {
-    var codeBlocks = Array.prototype.slice.call(document.getElementsByTagName('pre'))
-    codeBlocks.forEach(function(block, index) {
-      hljs.highlightBlock(block);
-    });
-  });
-</script><!-- hexo-inject:begin --><!-- hexo-inject:end -->
-
-  </body>
 </html>
-

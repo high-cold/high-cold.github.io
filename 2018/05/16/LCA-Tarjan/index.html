@@ -1,188 +1,160 @@
+
 <!DOCTYPE html>
-<html>
-  <!-- Html Head Tag-->
-  <head>
-  <!-- hexo-inject:begin --><!-- hexo-inject:end --><meta charset="UTF-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="description" content="">
-  <meta name="author" content="high-cold">
-  <!-- Open Graph Data -->
-  <meta property="og:title" content="LCA-Tarjan"/>
-  <meta property="og:description" content="" />
-  <meta property="og:site_name" content="High-Cold"/>
-  <meta property="og:type" content="article" />
-  <meta property="og:image" content="http://yoursite.com"/>
-  
-    <link rel="alternate" href="/atom.xml" title="High-Cold" type="application/atom+xml">
-  
-  
-    <link rel="icon" href="/favicon.png">
-  
+<html lang="zh_CN" class="loading">
+<head>
+    <!-- hexo-inject:begin --><!-- hexo-inject:end --><meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <meta name="viewport" content="width=device-width, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>High-Cold - 一个经常GG的人</title>
 
-  <!-- Site Title -->
-  <title>High-Cold</title>
-
-  <!-- Bootstrap CSS -->
-  <link rel="stylesheet" href="/css/bootstrap.min.css">
-  <!-- Custom CSS -->
-  
-  <link rel="stylesheet" href="/css/style.light.css">
-
-  <!-- Google Analytics --><!-- hexo-inject:begin --><!-- hexo-inject:end -->
-  
-
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="google" content="notranslate" />
+    <meta name="keywords" content="Fechin,"> 
+    <meta name="description" content="1.1 题目描述这是一道基础分治练习题。
+给你三个数列 {ai}, {bi}, {ci}，保证每个数列都恰好是一个排列。你需要求出满足 ai &amp;lt; aj , bi &amp;lt;
+bj , ci &amp;l,"> 
+    <meta name="author" content="high-cold"> 
+    <link rel="alternative" href="atom.xml" title="High-Cold" type="application/atom+xml"> 
+    <link rel="icon" href="/img/favicon.png"> 
+    <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.css">
+    <link rel="stylesheet" href="/css/diaspora.css"><!-- hexo-inject:begin --><!-- hexo-inject:end -->
 </head>
 
-
-<script src="//cdn.bootcss.com/pace/1.0.2/pace.min.js"></script>
-<link href="//cdn.bootcss.com/pace/1.0.2/themes/pink/pace-theme-flash.css" rel="stylesheet"
-<link href="//cdn.staticfile.org/KaTeX/0.7.1/katex.min.css"rel="stylesheet">
-
-<style>
-    .pace .pace-progress {
-    	background: #1E92FB; /*进度条颜色*/
-    	height: 3px;
-    }
-    .pace .pace-progress-inner {
-     	box-shadow: 0 0 10px #1E92FB, 0 0 5px #1E92FB; /*阴影颜色*/
-    }
-    .pace .pace-activity {
-    	border-top-color: #1E92FB;	/*上边框颜色*/
-    	border-left-color: #1E92FB;	/*左边框颜色*/
-    }
-  </style>
-  <body>
-    <!-- hexo-inject:begin --><!-- hexo-inject:end --><!-- Page Header -->
-
-
-<header class="site-header header-background" style="background-image: url(/img/default-banner-light.jpg)">
-  <div class="container">
-    <div class="row">
-      <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
-        <div class="page-title with-background-image">
-          <p class="title">LCA-Tarjan</p>
-          <p class="subtitle"></p>
+<body class="loading">
+    <!-- hexo-inject:begin --><!-- hexo-inject:end --><div id="loader"></div>
+    <div id="single">
+    <div id="top" style="display: block;">
+    <div class="bar" style="width: 0;"></div>
+    <a class="icon-home image-icon" href="javascript:;"></a>
+    <div title="播放/暂停" class="icon-play"></div>
+    <h3 class="subtitle">LCA-Tarjan</h3>
+    <div class="social">
+        <!--<div class="like-icon">-->
+            <!--<a href="javascript:;" class="likeThis active"><span class="icon-like"></span><span class="count">76</span></a>-->
+        <!--</div>-->
+        <div>
+            <div class="share">
+                <a title="获取二维码" class="icon-scan" href="javascript:;"></a>
+            </div>
+            <div id="qr"></div>
         </div>
-        <div class="site-menu with-background-image">
-          <ul>
-            
-              <li>
-                <a href="/">
-                  
-                  Home
-                  
-                </a>
-              </li>
-            
-              <li>
-                <a href="/archives">
-                  
-                  Archives
-                  
-                </a>
-              </li>
-            
-              <li>
-                <a href="https://github.com/high-cold">
-                  
-                  Github
-                  
-                </a>
-              </li>
-            
-              <li>
-                <a href="http://1286791085@qq.com">
-                  
-                  Email
-                  
-                </a>
-              </li>
-            
-          </ul>
-        </div>
-      </div>
     </div>
-  </div>
-</header>
+    <div class="scrollbar"></div>
+</div>
+    <div class="section">
+        <div class="article">
+    <div class='main'>
+        <h1 class="title">LCA-Tarjan</h1>
+        <div class="stuff">
+            <span>五月 16, 2018</span>
+            
+  <ul class="post-tags-list"><li class="post-tags-list-item"><a class="post-tags-list-link" href="/tags/蒟蒻的LCA/">蒟蒻的LCA</a></li></ul>
 
-<article>
-  <div class="container typo">
-    <div class="row">
-      <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
-        <div class="post-info text-muted">
-          
-            <!-- Author -->
-            <span class="author info">By high-cold</span>
-          
-          <!-- Date -->
-          <span class="date-time info">On
-            <span class="date">05/16/18</span>
-            <span class="time">21:09:16</span>
-          </span>
-          
-          <!--  Categories  -->
-            <span class="categories info">Under 
 
-<a href="/categories/LCA/">LCA</a>
-</span>
-          
         </div>
-        <!-- Tags -->
-        
-          <div class="post-tags text-muted">
-            Tags: 
-
-<a class="tag" href="/tags/蒟蒻的LCA/">#蒟蒻的LCA</a>
-
-
-          </div>
-        
-        <!-- Post Main Content -->
-        <div class="post-content">
-          <h3 id="Tarjan-求LCA-是一种十分优秀的离线算法（缺点就是必须离线），时间复杂度为-O-n-m-（然而一般的并查集时间复杂度是O-nlogn-），小于树剖、倍增等方法。"><a href="#Tarjan-求LCA-是一种十分优秀的离线算法（缺点就是必须离线），时间复杂度为-O-n-m-（然而一般的并查集时间复杂度是O-nlogn-），小于树剖、倍增等方法。" class="headerlink" title="Tarjan 求LCA 是一种十分优秀的离线算法（缺点就是必须离线），时间复杂度为 O(n+m)（然而一般的并查集时间复杂度是O(nlogn)），小于树剖、倍增等方法。"></a>Tarjan 求LCA 是一种十分优秀的离线算法（缺点就是必须离线），时间复杂度为 O(n+m)（然而一般的并查集时间复杂度是O(nlogn)），小于树剖、倍增等方法。</h3><a id="more"></a>
+        <div class="content markdown">
+            <h3 id="Tarjan-求LCA-是一种十分优秀的离线算法（缺点就是必须离线），时间复杂度为-O-n-m-（然而一般的并查集时间复杂度是O-nlogn-），小于树剖、倍增等方法。"><a href="#Tarjan-求LCA-是一种十分优秀的离线算法（缺点就是必须离线），时间复杂度为-O-n-m-（然而一般的并查集时间复杂度是O-nlogn-），小于树剖、倍增等方法。" class="headerlink" title="Tarjan 求LCA 是一种十分优秀的离线算法（缺点就是必须离线），时间复杂度为 O(n+m)（然而一般的并查集时间复杂度是O(nlogn)），小于树剖、倍增等方法。"></a>Tarjan 求LCA 是一种十分优秀的离线算法（缺点就是必须离线），时间复杂度为 O(n+m)（然而一般的并查集时间复杂度是O(nlogn)），小于树剖、倍增等方法。</h3><a id="more"></a>
 <p>其保证时间复杂度的方法是在遍历树的时候记录已经走过的分支口，使得回溯的时候可以O(1)得出两个点的LCA。但是在开始前必须先将要求的点对进行排序，不然算法会退化。</p>
 <pre><code><div class="highlight"><pre>&#35;include &#60;algorithm&#62; &#47;&#47;STL&#36890;&#29992;&#31639;&#27861;&#10;&#35;include &#60;cmath&#62; &#47;&#47;&#23450;&#20041;&#25968;&#23398;&#20989;&#25968;&#10;&#35;include &#60;cstdio&#62; &#47;&#47;&#23450;&#20041;&#36755;&#20837;&#47;&#36755;&#20986;&#20989;&#25968;&#10;&#35;include &#60;iostream&#62; &#47;&#47;&#25968;&#25454;&#27969;&#36755;&#20837;&#47;&#36755;&#20986;&#10;&#35;include &#60;cstring&#62; &#47;&#47;&#23383;&#31526;&#20018;&#22788;&#29702;&#10;&#35;include &#60;string&#62; &#47;&#47;&#23383;&#31526;&#20018;&#31867;&#10;&#35;include &#60;ctime&#62; &#47;&#47;&#23450;&#20041;&#20851;&#20110;&#26102;&#38388;&#30340;&#20989;&#25968;&#10;&#35;define itn int&#10;&#35;define fro for&#10;&#35;define ll long long&#10;&#35;define reg register&#10;&#47;&#42;&#35;include &#60;bitset&#62; &#47;&#47;STL&#20301;&#38598;&#23481;&#22120;&#10;&#35;include &#60;cstype&#62; &#47;&#47;&#23383;&#31526;&#22788;&#29702;&#10;&#35;include &#60;cerrno&#62; &#47;&#47;&#23450;&#20041;&#38169;&#35823;&#30721;&#10;&#35;include &#60;complex&#62; &#47;&#47;&#22797;&#25968;&#31867;&#10;&#35;include &#60;clocale&#62; &#47;&#47;&#23450;&#20041;&#26412;&#22320;&#21270;&#20989;&#25968;&#10;&#35;include &#60;cstdlib&#62; &#47;&#47;&#23450;&#20041;&#26434;&#39033;&#20989;&#25968;&#21450;&#20869;&#23384;&#20998;&#37197;&#20989;&#25968;&#10;&#35;include &#60;deque&#62; &#47;&#47;STL&#21452;&#31471;&#38431;&#21015;&#23481;&#22120;&#10;&#35;include &#60;exception&#62; &#47;&#47;&#24322;&#24120;&#22788;&#29702;&#31867;&#10;&#35;include &#60;fstream&#62; &#47;&#47;&#25991;&#20214;&#36755;&#20837;&#47;&#36755;&#20986;&#10;&#35;include &#60;functional&#62; &#47;&#47;STL&#23450;&#20041;&#36816;&#31639;&#20989;&#25968;&#40;&#20195;&#26367;&#36816;&#31639;&#31526;&#41;&#10;&#35;include &#60;limits&#62; &#47;&#47;&#23450;&#20041;&#21508;&#31181;&#25968;&#25454;&#31867;&#22411;&#26368;&#20540;&#24120;&#37327;&#10;&#35;include &#60;list&#62; &#47;&#47;STL&#32447;&#24615;&#21015;&#34920;&#23481;&#22120;&#10;&#35;include &#60;map&#62; &#47;&#47;STL&#26144;&#23556;&#23481;&#22120;&#10;&#35;include &#60;iomanip&#62; &#47;&#47;&#21442;&#25968;&#21270;&#36755;&#20837;&#47;&#36755;&#20986;&#10;&#35;include &#60;ios&#62; &#47;&#47;&#22522;&#26412;&#36755;&#20837;&#47;&#36755;&#20986;&#25903;&#25345;&#10;&#35;include &#60;iosfwd&#62; &#47;&#47;&#36755;&#20837;&#47;&#36755;&#20986;&#31995;&#32479;&#20351;&#29992;&#30340;&#21069;&#32622;&#22768;&#26126;&#10;&#35;include &#60;istream&#62; &#47;&#47;&#22522;&#26412;&#36755;&#20837;&#27969;&#10;&#35;include &#60;ostream&#62; &#47;&#47;&#22522;&#26412;&#36755;&#20986;&#27969;&#10;&#35;include &#60;queue&#62; &#47;&#47;STL&#38431;&#21015;&#23481;&#22120;&#10;&#35;include &#60;set&#62; &#47;&#47;STL&#38598;&#21512;&#23481;&#22120;&#10;&#35;include &#60;sstream&#62; &#47;&#47;&#22522;&#20110;&#23383;&#31526;&#20018;&#30340;&#27969;&#10;&#35;include &#60;stack&#62; &#47;&#47;STL&#22534;&#26632;&#23481;&#22120;&#10;&#35;include &#60;stdexcept&#62; &#47;&#47;&#26631;&#20934;&#24322;&#24120;&#31867;&#10;&#35;include &#60;streambuf&#62; &#47;&#47;&#24213;&#23618;&#36755;&#20837;&#47;&#36755;&#20986;&#25903;&#25345;&#10;&#35;include &#60;utility&#62; &#47;&#47;STL&#36890;&#29992;&#27169;&#26495;&#31867;&#10;&#35;include &#60;vector&#62; &#47;&#47;STL&#21160;&#24577;&#25968;&#32452;&#23481;&#22120;&#10;&#35;include &#60;cwchar&#46;h&#62;&#47;&#47;&#23485;&#23383;&#31526;&#22788;&#29702;&#21450;&#36755;&#20837;&#47;&#36755;&#20986;&#10;&#35;include &#60;cwctype&#46;h&#62; &#47;&#47;&#23485;&#23383;&#31526;&#20998;&#31867;&#42;&#47;&#10;&#10;using namespace std&#59;&#10;&#10;int max&#40;int x&#44;int y&#41;&#123;&#10;    return x&#62;y&#63;x&#58;y&#59;&#10;&#125;&#10;&#10;int min&#40;int x&#44;int y&#41;&#123;&#10;    return x&#60;y&#63;x&#58;y&#59;&#10;&#125;&#10;&#10;int read&#40;&#41;&#123;&#10;    int x&#61;0&#44;f&#61;1&#59;char ch&#61;getchar&#40;&#41;&#59;&#10;    while &#40;ch&#60;&#39;0&#39; &#124;&#124; ch&#62;&#39;9&#39;&#41;&#123;if &#40;ch&#61;&#61;&#39;&#45;&#39;&#41;f&#61;&#45;1&#59;ch&#61;getchar&#40;&#41;&#59;&#125;&#10;    while &#40;&#39;0&#39;&#60;&#61;ch &#38;&#38; ch&#60;&#61;&#39;9&#39;&#41;&#123;x&#61;x&#42;10&#43;&#40;ch&#94;48&#41;&#59;ch&#61;getchar&#40;&#41;&#59;&#125;&#10;    return x&#42;f&#59;&#10;&#125;&#10;&#10;void write&#40;int x&#41;&#123;&#10;    int buf&#91;50&#93;&#59;&#10;    if &#40;x&#60;0&#41; putchar&#40;&#39;&#45;&#39;&#41;&#44;x&#61;&#45;x&#59;&#10;    buf&#91;0&#93;&#61;0&#59;&#10;    while &#40;x&#41; buf&#91;&#43;&#43;buf&#91;0&#93;&#93;&#61;x&#37;10&#44;x&#47;&#61;10&#59;&#10;    if &#40;&#33;buf&#91;0&#93;&#41; buf&#91;0&#93;&#61;1&#44;buf&#91;1&#93;&#61;0&#59;&#10;    while &#40;buf&#91;0&#93;&#41; putchar&#40;&#39;0&#39;&#43;buf&#91;buf&#91;0&#93;&#45;&#45;&#93;&#41;&#59;&#10;&#125;&#10;&#10;int fir&#91;5005000&#93;&#44;to&#91;1001000&#93;&#44;ne&#91;1001000&#93;&#44;firp&#91;5005000&#93;&#44;as&#91;1001000&#93;&#44;nep&#91;1001000&#93;&#59;&#10;int ans&#91;1001000&#93;&#44;vis&#91;5005000&#93;&#44;f&#91;5001000&#93;&#44;fa&#91;5005000&#93;&#59; &#10;int n&#44;m&#44;s&#44;e&#44;q&#44;a&#44;b&#59;&#10;&#10;&#10;void add&#40;int u&#44;int v&#41;&#10;&#123;&#10;    to&#91;&#43;&#43;e&#93;&#61;v&#59;&#10;    ne&#91;e&#93;&#61;fir&#91;u&#93;&#59;&#10;    fir&#91;u&#93;&#61;e&#59;&#10;&#125;&#10;&#10;void app&#40;int x&#44;int y&#41;&#10;&#123;&#10;    as&#91;&#43;&#43;q&#93;&#61;y&#59;&#10;    nep&#91;q&#93;&#61;firp&#91;x&#93;&#59;&#10;    firp&#91;x&#93;&#61;q&#59;&#10;&#125;&#10;&#10;int find&#40;int x&#41;&#10;&#123;&#10;    if&#40;x&#33;&#61;fa&#91;x&#93;&#41; fa&#91;x&#93;&#61;find&#40;fa&#91;x&#93;&#41;&#59;&#10;    return fa&#91;x&#93;&#59;&#10;&#125;&#10;&#10;void un&#40;int x&#44;int y&#41;&#10;&#123;&#10;    int xx&#61;find&#40;x&#41;&#59;&#10;    int yy&#61;find&#40;y&#41;&#59;&#10;    if&#40;xx&#33;&#61;yy&#41; fa&#91;xx&#93;&#61;yy&#59;&#10;&#125;&#10;&#10;void tarjan&#40;int x&#41;&#10;&#123;&#10;    for&#40;int i&#61;fir&#91;x&#93;&#59;i&#59;i&#61;ne&#91;i&#93;&#41;&#10;    &#123;&#10;        int t&#61;to&#91;i&#93;&#59;&#10;        if&#40;t&#61;&#61;f&#91;x&#93;&#41; continue&#59; &#10;        f&#91;t&#93;&#61;x&#59;&#10;        tarjan&#40;t&#41;&#59;&#10;        un&#40;t&#44;x&#41;&#59;&#10;        vis&#91;t&#93;&#61;1&#59;&#10;    &#125;&#10;    for&#40;int i&#61;firp&#91;x&#93;&#59;i&#59;i&#61;nep&#91;i&#93;&#41;&#10;    &#123;&#10;        int y&#61;as&#91;i&#93;&#59;&#10;        if&#40;vis&#91;y&#93;&#41; ans&#91;i&#93;&#61;find&#40;y&#41;&#59;&#10;    &#125;&#10;&#125;&#10;&#10;&#10;int main&#40;&#41;&#10;&#123;&#10;    n&#61;read&#40;&#41;&#59;m&#61;read&#40;&#41;&#59;s&#61;read&#40;&#41;&#59;&#10;    for&#40;int i&#61;1&#59;i&#60;&#61;n&#45;1&#59;i&#43;&#43;&#41;&#10;        a&#61;read&#40;&#41;&#44;b&#61;read&#40;&#41;&#44;add&#40;a&#44;b&#41;&#44;add&#40;b&#44;a&#41;&#59;&#10;&#10;    for&#40;int i&#61;1&#59;i&#60;&#61;m&#59;i&#43;&#43;&#41;&#10;        a&#61;read&#40;&#41;&#44;b&#61;read&#40;&#41;&#44;app&#40;a&#44;b&#41;&#44;app&#40;b&#44;a&#41;&#59;&#10;&#10;    for&#40;int i&#61;1&#59;i&#60;&#61;n&#59;i&#43;&#43;&#41; fa&#91;i&#93;&#61;i&#44;f&#91;i&#93;&#61;i&#59;&#10;&#10;    tarjan&#40;s&#41;&#59;&#10;&#10;    for&#40;int i&#61;1&#59;i&#60;&#61;m&#59;i&#43;&#43;&#41;&#10;        printf&#40;&#34;&#37;d&#92;n&#34;&#44;max&#40;ans&#91;2&#42;i&#93;&#44;ans&#91;2&#42;i&#45;1&#93;&#41;&#41;&#59;&#10;&#10;    return 0&#59;&#10;&#125;</pre></div></code></pre>
+            <!--[if lt IE 9]><script>document.createElement('audio');</script><![endif]-->
+            <audio id="audio" loop="1" preload="auto" controls="controls" data-autoplay="true">
+                <source type="audio/mpeg" src="">
+            </audio>
+            
+                <ul id="audio-list" style="display:none">
+                    
+                        <li title='0' data-url='http://link.hhtjim.com/163/624751.mp3'></li>
+                    
+                        <li title='1' data-url='http://link.hhtjim.com/163/29046094.mp3'></li>
+                    
+                        <li title='2' data-url='http://link.hhtjim.com/163/22677451.mp3'></li>
+                    
+                </ul>
+            
         </div>
-      </div>
+        
+    <div id='gitalk-container' class="comment link"
+        data-ae='false'
+        data-ci=''
+        data-cs=''
+        data-r=''
+        data-o=''
+        data-a=''
+        data-d='false'
+    >查看评论</div>
+
+
     </div>
-  </div>
-</article>
+    
+        <div class='side'>
+            <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#Tarjan-求LCA-是一种十分优秀的离线算法（缺点就是必须离线），时间复杂度为-O-n-m-（然而一般的并查集时间复杂度是O-nlogn-），小于树剖、倍增等方法。"><span class="toc-number">1.</span> <span class="toc-text">Tarjan 求LCA 是一种十分优秀的离线算法（缺点就是必须离线），时间复杂度为 O(n+m)（然而一般的并查集时间复杂度是O(nlogn)），小于树剖、倍增等方法。</span></a></li></ol>
+        </div>
+    
+</div>
 
 
-
-    <script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
-<!-- Footer -->
-<footer>
-  <div class="container">
-    <div class="row">
-      <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
-        <p class="copyright text-muted">
-          Theme By <a target="_blank" href="https://github.com/high-cold">High-Cold.</a>
-          Inspired By <a target="_blank" href="https://github.com/klugjo/hexo-theme-clean-blog">Clean Blog.</a>
-        <p class="copyright text-muted">
-          Powered By <a target="_blank" href="https://hexo.io/">Hexo.</a>
-        </p>
-		<span id="busuanzi_container_site_pv">
-		  本站总访问量 <span id="busuanzi_value_site_pv"></span> 次
-		</span>
-      </div>
     </div>
-  </div>
-</footer>
+</div><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+</body>
+<script src="//cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js"></script>
+<script src="//lib.baomitu.com/jquery/1.8.3/jquery.min.js"></script>
+<script src="/js/plugin.js"></script>
+<script src="/js/diaspora.js"></script>
+<link rel="stylesheet" href="/photoswipe/photoswipe.css">
+<link rel="stylesheet" href="/photoswipe/default-skin/default-skin.css">
+<script src="/photoswipe/photoswipe.min.js"></script>
+<script src="/photoswipe/photoswipe-ui-default.min.js"></script>
+
+<!-- Root element of PhotoSwipe. Must have class pswp. -->
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+    <!-- Background of PhotoSwipe. 
+         It's a separate element as animating opacity is faster than rgba(). -->
+    <div class="pswp__bg"></div>
+    <!-- Slides wrapper with overflow:hidden. -->
+    <div class="pswp__scroll-wrap">
+        <!-- Container that holds slides. 
+            PhotoSwipe keeps only 3 of them in the DOM to save memory.
+            Don't modify these 3 pswp__item elements, data is added later on. -->
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+        <!-- Default (PhotoSwipeUI_Default) interface on top of sliding area. Can be changed. -->
+        <div class="pswp__ui pswp__ui--hidden">
+            <div class="pswp__top-bar">
+                <!--  Controls are self-explanatory. Order can be changed. -->
+                <div class="pswp__counter"></div>
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+                <button class="pswp__button pswp__button--share" title="Share"></button>
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+                <!-- Preloader demo http://codepen.io/dimsemenov/pen/yyBWoR -->
+                <!-- element will get class pswp__preloader--active when preloader is running -->
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                      <div class="pswp__preloader__cut">
+                        <div class="pswp__preloader__donut"></div>
+                      </div>
+                    </div>
+                </div>
+            </div>
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div> 
+            </div>
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+        </div>
+    </div>
+</div>
 
 
-    <!-- After Footer Scripts -->
-<script src="/js/highlight.pack.js"></script>
-<script>
-  document.addEventListener("DOMContentLoaded", function(event) {
-    var codeBlocks = Array.prototype.slice.call(document.getElementsByTagName('pre'))
-    codeBlocks.forEach(function(block, index) {
-      hljs.highlightBlock(block);
-    });
-  });
-</script><!-- hexo-inject:begin --><!-- hexo-inject:end -->
 
-  </body>
+
 </html>
-

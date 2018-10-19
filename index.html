@@ -1,430 +1,261 @@
+
 <!DOCTYPE html>
-<html>
-  <!-- Html Head Tag-->
-  <head>
-  <!-- hexo-inject:begin --><!-- hexo-inject:end --><meta charset="UTF-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="description" content="">
-  <meta name="author" content="high-cold">
-  <!-- Open Graph Data -->
-  <meta property="og:title" content="High-Cold"/>
-  <meta property="og:description" content="" />
-  <meta property="og:site_name" content="High-Cold"/>
-  <meta property="og:type" content="website" />
-  <meta property="og:image" content="http://yoursite.com"/>
-  
-    <link rel="alternate" href="/atom.xml" title="High-Cold" type="application/atom+xml">
-  
-  
-    <link rel="icon" href="/favicon.png">
-  
+<html lang="zh_CN" class="loading">
+<head>
+    <!-- hexo-inject:begin --><!-- hexo-inject:end --><meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <meta name="viewport" content="width=device-width, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>High-Cold - 一个经常GG的人</title>
 
-  <!-- Site Title -->
-  <title>High-Cold</title>
-
-  <!-- Bootstrap CSS -->
-  <link rel="stylesheet" href="/css/bootstrap.min.css">
-  <!-- Custom CSS -->
-  
-  <link rel="stylesheet" href="/css/style.light.css">
-
-  <!-- Google Analytics --><!-- hexo-inject:begin --><!-- hexo-inject:end -->
-  
-
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="google" content="notranslate" />
+    <meta name="keywords" content="Fechin,"> 
+    <meta name="description" content="1.1 题目描述这是一道基础分治练习题。
+给你三个数列 {ai}, {bi}, {ci}，保证每个数列都恰好是一个排列。你需要求出满足 ai &amp;lt; aj , bi &amp;lt;
+bj , ci &amp;l,"> 
+    <meta name="author" content="high-cold"> 
+    <link rel="alternative" href="atom.xml" title="High-Cold" type="application/atom+xml"> 
+    <link rel="icon" href="/img/favicon.png"> 
+    <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.css">
+    <link rel="stylesheet" href="/css/diaspora.css"><!-- hexo-inject:begin --><!-- hexo-inject:end -->
 </head>
 
+<body class="loading">
+    <!-- hexo-inject:begin --><!-- hexo-inject:end --><div id="loader"></div>
+    <div class="nav">
+    <ul id="menu-menu" class="menu">
+        
+        <li class="pview menu-item menu-item-type-post_type menu-item-object-page">
+            <a href="/whoami/" title="Whoami" target="_blank" rel="noopener">Whoami</a>
+        </li>
+        
+        <li class="  menu-item menu-item-type-post_type menu-item-object-page">
+            <a href="https://github.com/high-cold" title="Github" target="_blank" rel="noopener">Github</a>
+        </li>
+        
+        <li class="  menu-item menu-item-type-post_type menu-item-object-page">
+            <a href="https://twitter.com/HighCold6?lang=en" title="Twitter" target="_blank" rel="noopener">Twitter</a>
+        </li>
+        
+    </ul>
+    <p id="copyright">
+        &copy; 2018 high-cold.
+        Powered by <a href="http://hexo.io/" title="Hexo" target="_blank" rel="noopener">Hexo</a>
+        Theme <a href="https://github.com/Fechin/hexo-theme-diaspora" title="Diaspora" target="_blank" rel="noopener">Diaspora</a>
+        by Fechin
+    </p>
+</div>
 
-<script src="//cdn.bootcss.com/pace/1.0.2/pace.min.js"></script>
-<link href="//cdn.bootcss.com/pace/1.0.2/themes/pink/pace-theme-flash.css" rel="stylesheet"
-<link href="//cdn.staticfile.org/KaTeX/0.7.1/katex.min.css"rel="stylesheet">
-
-<style>
-    .pace .pace-progress {
-    	background: #1E92FB; /*进度条颜色*/
-    	height: 3px;
-    }
-    .pace .pace-progress-inner {
-     	box-shadow: 0 0 10px #1E92FB, 0 0 5px #1E92FB; /*阴影颜色*/
-    }
-    .pace .pace-activity {
-    	border-top-color: #1E92FB;	/*上边框颜色*/
-    	border-left-color: #1E92FB;	/*左边框颜色*/
-    }
-  </style>
-  <body>
-    <!-- hexo-inject:begin --><!-- hexo-inject:end --><!-- Page Header -->
-
-
-<header class="site-header header-background" style="background-image: url(/img/default-banner-light.jpg)">
-  <div class="container">
-    <div class="row">
-      <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
-        <div class="page-title with-background-image">
-          <p class="title">High-Cold</p>
-          <p class="subtitle">一个经常GG的人</p>
+<div id="container">
+    
+<div id="screen">
+    <div id="mark">
+        <div class="layer" data-depth="0.4">
+            <img src="/images/58145566_p0.png" id="cover" crossorigin="anonymous" width="1920" height="1080">
         </div>
-        <div class="site-menu with-background-image">
-          <ul>
-            
-              <li>
-                <a href="/">
-                  
-                  Home
-                  
-                </a>
-              </li>
-            
-              <li>
-                <a href="/archives">
-                  
-                  Archives
-                  
-                </a>
-              </li>
-            
-              <li>
-                <a href="https://github.com/high-cold">
-                  
-                  Github
-                  
-                </a>
-              </li>
-            
-              <li>
-                <a href="http://1286791085@qq.com">
-                  
-                  Email
-                  
-                </a>
-              </li>
-            
-          </ul>
+    </div>
+    <div id="vibrant">
+        <svg viewBox="0 0 2880 1620" height="100%" preserveAspectRatio="xMaxYMax slice">
+            <polygon opacity="0.7" points="2000,1620 0,1620 0,0 600,0 "/>
+        </svg>
+        <div></div>
+    </div>
+    <div id="header">
+        <div>
+            <a class="image-logo" href="/"></a>
+            <div class="icon-menu switchmenu"></div>
         </div>
-      </div>
     </div>
-  </div>
-</header>
-
-<!-- Home Page Post List -->
-<div class="container">
-  <div class="row">
-    <div class="col-lg-10 col-md-10 col-md-offset-1">
-      
-        <div class="post-item-wrapper">
-  <a href="/2018/10/18/基础分治练习题/" class="post-title">
-      基础分治练习题
-  </a>
-  <div class="post-excerpt">
-    <!-- Post Date and Categories -->
-    <div class="date-and-category">
-      <div class="date">10/18/18</div>
-      <div class="categories">
-        
-          
-
-<a href="/categories/NOIP2018赛前集训试题解析/">NOIP2018赛前集训试题解析</a>
-
-        
-      </div>
+    
+    <div id="post0">
+        <p>十月 18, 2018</p>
+        <h2><a href="/2018/10/18/基础分治练习题/" title="基础分治练习题" class="posttitle">基础分治练习题</a></h2>
+        <p class="summary">1.1 题目描述这是一道基础分治练习题。
+给你三个数列 {ai}, {bi}, {ci}，保证每个数列都恰好是一个...</p>
     </div>
-    <!-- Post Excerpt -->
-    <div class="excerpt typo"><h4 id="1-1-题目描述"><a href="#1-1-题目描述" class="headerlink" title="1.1 题目描述"></a><strong>1.1 题目描述</strong></h4><p>这是一道基础分治练习题。
-给你三个数列 {ai}, {bi}, {ci}，保证每个数列都恰好是一个排列。你需要求出满足 ai &lt; aj , bi &lt;
-bj , ci &lt; cj 的有序对 (i, j) 的数目。</p></div>
-    <!-- Post Tags -->
-    <div class="tags">
-      
-        
-
-<a class="tag" href="/tags/题解/">题解</a>
-
-
-      
-    </div>
-  </div>
+    
 </div>
 
-      
-        <div class="post-item-wrapper">
-  <a href="/2018/05/16/LCA-LCT/" class="post-title">
-      LCA-LCT
-  </a>
-  <div class="post-excerpt">
-    <!-- Post Date and Categories -->
-    <div class="date-and-category">
-      <div class="date">05/16/18</div>
-      <div class="categories">
+    <div id="primary">
         
-          
+<div class="post">
+    <a href="/2018/05/16/LCA-LCT/" title="LCA-LCT">
+        <img src="/images/68711970_p0.png" class="cover" width="680" height="440">
+    </a>
+    <div class="else">
+        <p>五月 16, 2018</p>
+        <h3><a href="/2018/05/16/LCA-LCT/" title="LCA-LCT" class="posttitle">LCA-LCT</a></h3>
+        <p>这是蒟蒻我现在会的唯一的动态树LCA
 
-<a href="/categories/LCA/">LCA</a>
-
-        
-      </div>
+先access(u),splay(u),查看一下v所在splay的根是否为u，如果是的话，那么 LCA(u,v)=...</p>
     </div>
-    <!-- Post Excerpt -->
-    <div class="excerpt typo"><p>这是蒟蒻我现在会的唯一的动态树LCA</p></div>
-    <!-- Post Tags -->
-    <div class="tags">
-      
-        
-
-<a class="tag" href="/tags/蒟蒻的LCA/">蒟蒻的LCA</a>
-
-
-      
-    </div>
-  </div>
 </div>
 
-      
-        <div class="post-item-wrapper">
-  <a href="/2018/05/16/LCA-倍增/" class="post-title">
-      LCA-倍增
-  </a>
-  <div class="post-excerpt">
-    <!-- Post Date and Categories -->
-    <div class="date-and-category">
-      <div class="date">05/16/18</div>
-      <div class="categories">
-        
-          Uncategorized
-        
-      </div>
+
+<div class="post">
+    <a href="/2018/05/16/LCA-倍增/" title="LCA-倍增">
+        <img src="/img/cover.jpg" class="cover" width="680" height="440">
+    </a>
+    <div class="else">
+        <p>五月 16, 2018</p>
+        <h3><a href="/2018/05/16/LCA-倍增/" title="LCA-倍增" class="posttitle">LCA-倍增</a></h3>
+        <p></p>
     </div>
-    <!-- Post Excerpt -->
-    <div class="excerpt typo">暂无文章摘要</div>
-    <!-- Post Tags -->
-    <div class="tags">
-      
-        <div class="untagged">Untagged</div>
-      
-    </div>
-  </div>
 </div>
 
-      
-        <div class="post-item-wrapper">
-  <a href="/2018/05/16/LCA-树剖/" class="post-title">
-      LCA-树剖
-  </a>
-  <div class="post-excerpt">
-    <!-- Post Date and Categories -->
-    <div class="date-and-category">
-      <div class="date">05/16/18</div>
-      <div class="categories">
-        
-          
 
-<a href="/categories/LCA/">LCA</a>
-
-        
-      </div>
+<div class="post">
+    <a href="/2018/05/16/LCA-树剖/" title="LCA-树剖">
+        <img src="/img/cover.jpg" class="cover" width="680" height="440">
+    </a>
+    <div class="else">
+        <p>五月 16, 2018</p>
+        <h3><a href="/2018/05/16/LCA-树剖/" title="LCA-树剖" class="posttitle">LCA-树剖</a></h3>
+        <p>树剖，全称树链剖分，其中已重链剖分较为常用（还有实链剖分，但是与此题无关）
+此题主要用到树剖的两个dfs所得的top,dfn(dep),size,fa,s...</p>
     </div>
-    <!-- Post Excerpt -->
-    <div class="excerpt typo"><h3 id="树剖，全称树链剖分，其中已重链剖分较为常用（还有实链剖分，但是与此题无关）"><a href="#树剖，全称树链剖分，其中已重链剖分较为常用（还有实链剖分，但是与此题无关）" class="headerlink" title="树剖，全称树链剖分，其中已重链剖分较为常用（还有实链剖分，但是与此题无关）"></a>树剖，全称树链剖分，其中已重链剖分较为常用（还有实链剖分，但是与此题无关）</h3></div>
-    <!-- Post Tags -->
-    <div class="tags">
-      
-        
-
-<a class="tag" href="/tags/蒟蒻的LCA/">蒟蒻的LCA</a>
-
-
-      
-    </div>
-  </div>
 </div>
 
-      
-        <div class="post-item-wrapper">
-  <a href="/2018/05/16/LCA-Tarjan/" class="post-title">
-      LCA-Tarjan
-  </a>
-  <div class="post-excerpt">
-    <!-- Post Date and Categories -->
-    <div class="date-and-category">
-      <div class="date">05/16/18</div>
-      <div class="categories">
-        
-          
 
-<a href="/categories/LCA/">LCA</a>
-
-        
-      </div>
+<div class="post">
+    <a href="/2018/05/16/LCA-Tarjan/" title="LCA-Tarjan">
+        <img src="/img/cover.jpg" class="cover" width="680" height="440">
+    </a>
+    <div class="else">
+        <p>五月 16, 2018</p>
+        <h3><a href="/2018/05/16/LCA-Tarjan/" title="LCA-Tarjan" class="posttitle">LCA-Tarjan</a></h3>
+        <p>Tarjan 求LCA 是一种十分优秀的离线算法（缺点就是必须离线），时间复杂度为 O(n+m)（然而一般的并查集时间复杂度是O(nlogn)），小于树剖...</p>
     </div>
-    <!-- Post Excerpt -->
-    <div class="excerpt typo"><h3 id="Tarjan-求LCA-是一种十分优秀的离线算法（缺点就是必须离线），时间复杂度为-O-n-m-（然而一般的并查集时间复杂度是O-nlogn-），小于树剖、倍增等方法。"><a href="#Tarjan-求LCA-是一种十分优秀的离线算法（缺点就是必须离线），时间复杂度为-O-n-m-（然而一般的并查集时间复杂度是O-nlogn-），小于树剖、倍增等方法。" class="headerlink" title="Tarjan 求LCA 是一种十分优秀的离线算法（缺点就是必须离线），时间复杂度为 O(n+m)（然而一般的并查集时间复杂度是O(nlogn)），小于树剖、倍增等方法。"></a>Tarjan 求LCA 是一种十分优秀的离线算法（缺点就是必须离线），时间复杂度为 O(n+m)（然而一般的并查集时间复杂度是O(nlogn)），小于树剖、倍增等方法。</h3></div>
-    <!-- Post Tags -->
-    <div class="tags">
-      
-        
-
-<a class="tag" href="/tags/蒟蒻的LCA/">蒟蒻的LCA</a>
-
-
-      
-    </div>
-  </div>
 </div>
 
-      
-        <div class="post-item-wrapper">
-  <a href="/2018/05/14/左偏树（可并堆）/" class="post-title">
-      左偏树（可并堆）
-  </a>
-  <div class="post-excerpt">
-    <!-- Post Date and Categories -->
-    <div class="date-and-category">
-      <div class="date">05/14/18</div>
-      <div class="categories">
-        
-          
 
-<a href="/categories/左偏树/">左偏树</a>
-
-        
-      </div>
+<div class="post">
+    <a href="/2018/05/14/左偏树（可并堆）/" title="左偏树（可并堆）">
+        <img src="/img/cover.jpg" class="cover" width="680" height="440">
+    </a>
+    <div class="else">
+        <p>五月 14, 2018</p>
+        <h3><a href="/2018/05/14/左偏树（可并堆）/" title="左偏树（可并堆）" class="posttitle">左偏树（可并堆）</a></h3>
+        <p>左偏树(Leftist Tree)是一种可并堆的实现。左偏树相比于有两个额外的属性：键值和距离。
+ 键值 是用于比较节点的大小。
+ 距离 则是如下定义的：...</p>
     </div>
-    <!-- Post Excerpt -->
-    <div class="excerpt typo"><h1 id="左偏树-Leftist-Tree-是一种可并堆的实现。"><a href="#左偏树-Leftist-Tree-是一种可并堆的实现。" class="headerlink" title="左偏树(Leftist Tree)是一种可并堆的实现。"></a>左偏树(Leftist Tree)是一种可并堆的实现。</h1><p>左偏树相比于有两个额外的属性：键值和距离。
-<strong> 键值 </strong>是用于比较节点的大小。
-<strong> 距离 </strong>则是如下定义的：
-节点i称为外节点(external node)，当且仅当节点i的左子树或右子树为空(left(i)=NULL或right(i)=NULL)。
-节点i的距离(dist(i))是节点i到它的后代中，最近的外节点所经过的边数。
-特别的，如果节点i本身是外节点，则它的距离为0；而空节点的距离规定为-1 (dist(NULL)=-1)。</p></div>
-    <!-- Post Tags -->
-    <div class="tags">
-      
-        
-
-<a class="tag" href="/tags/蒟蒻的板子/">蒟蒻的板子</a>
-
-
-      
-    </div>
-  </div>
 </div>
 
-      
-        <div class="post-item-wrapper">
-  <a href="/2018/05/14/卢卡斯定理/" class="post-title">
-      卢卡斯定理
-  </a>
-  <div class="post-excerpt">
-    <!-- Post Date and Categories -->
-    <div class="date-and-category">
-      <div class="date">05/14/18</div>
-      <div class="categories">
-        
-          
 
-<a href="/categories/数论/">数论</a>
+<div class="post">
+    <a href="/2018/05/14/卢卡斯定理/" title="卢卡斯定理">
+        <img src="/img/cover.jpg" class="cover" width="680" height="440">
+    </a>
+    <div class="else">
+        <p>五月 14, 2018</p>
+        <h3><a href="/2018/05/14/卢卡斯定理/" title="卢卡斯定理" class="posttitle">卢卡斯定理</a></h3>
+        <p>卢卡斯定理
+这个定理，貌似只有组合数取模的时候可以用到，其他的没什么用(￣▽￣)~*
+so，背公式吧
 
-        
-      </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ 
+ 
+ 
+ 
+ 
+...</p>
     </div>
-    <!-- Post Excerpt -->
-    <div class="excerpt typo"><h2 id="卢卡斯定理"><a href="#卢卡斯定理" class="headerlink" title="卢卡斯定理"></a>卢卡斯定理</h2></div>
-    <!-- Post Tags -->
-    <div class="tags">
-      
-        
-
-<a class="tag" href="/tags/蒟蒻的板子/">蒟蒻的板子</a>
-
-
-      
-    </div>
-  </div>
 </div>
 
-      
-        <div class="post-item-wrapper">
-  <a href="/2018/05/14/Link-Cut-Tree-（动态树）/" class="post-title">
-      Link Cut Tree （动态树）
-  </a>
-  <div class="post-excerpt">
-    <!-- Post Date and Categories -->
-    <div class="date-and-category">
-      <div class="date">05/14/18</div>
-      <div class="categories">
-        
-          
 
-<a href="/categories/LCT/">LCT</a>
-
-        
-      </div>
+<div class="post">
+    <a href="/2018/05/14/Link-Cut-Tree-（动态树）/" title="Link Cut Tree （动态树）">
+        <img src="/img/cover.jpg" class="cover" width="680" height="440">
+    </a>
+    <div class="else">
+        <p>五月 14, 2018</p>
+        <h3><a href="/2018/05/14/Link-Cut-Tree-（动态树）/" title="Link Cut Tree （动态树）" class="posttitle">Link Cut Tree （动态树）</a></h3>
+        <p>关于 LCT(Link-Cut-Tree)说难不难，总归是个板子；说简单也不简单，写法千变万化。总的来说就是把板子背熟，才能在考场上写的出来（但是貌似写的...</p>
     </div>
-    <!-- Post Excerpt -->
-    <div class="excerpt typo"><h1 id="关于-LCT-Link-Cut-Tree"><a href="#关于-LCT-Link-Cut-Tree" class="headerlink" title="关于 LCT(Link-Cut-Tree)"></a>关于 LCT(Link-Cut-Tree)</h1><p>说难不难，总归是个板子；说简单也不简单，写法千变万化。总的来说就是把板子背熟，才能在考场上写的出来（但是貌似写的出来也看不出来 (～￣▽￣)～  ）</p></div>
-    <!-- Post Tags -->
-    <div class="tags">
-      
-        
-
-<a class="tag" href="/tags/蒟蒻的LCT/">蒟蒻的LCT</a>
-
-
-      
-    </div>
-  </div>
 </div>
 
-      
-    </div>
-  </div>
-</div>
 
-<!-- Pagination -->
-<div class="container">
-  <div class="row">
-    <div class="col-lg-10 col-md-10 col-md-offset-1">
-      <ul class="pagination">
-          
-          
-      </ul>
     </div>
-  </div>
+    
+</div>
+<div id="preview"></div><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+
+</body>
+<script src="//cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js"></script>
+<script src="//lib.baomitu.com/jquery/1.8.3/jquery.min.js"></script>
+<script src="/js/plugin.js"></script>
+<script src="/js/diaspora.js"></script>
+<link rel="stylesheet" href="/photoswipe/photoswipe.css">
+<link rel="stylesheet" href="/photoswipe/default-skin/default-skin.css">
+<script src="/photoswipe/photoswipe.min.js"></script>
+<script src="/photoswipe/photoswipe-ui-default.min.js"></script>
+
+<!-- Root element of PhotoSwipe. Must have class pswp. -->
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+    <!-- Background of PhotoSwipe. 
+         It's a separate element as animating opacity is faster than rgba(). -->
+    <div class="pswp__bg"></div>
+    <!-- Slides wrapper with overflow:hidden. -->
+    <div class="pswp__scroll-wrap">
+        <!-- Container that holds slides. 
+            PhotoSwipe keeps only 3 of them in the DOM to save memory.
+            Don't modify these 3 pswp__item elements, data is added later on. -->
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+        <!-- Default (PhotoSwipeUI_Default) interface on top of sliding area. Can be changed. -->
+        <div class="pswp__ui pswp__ui--hidden">
+            <div class="pswp__top-bar">
+                <!--  Controls are self-explanatory. Order can be changed. -->
+                <div class="pswp__counter"></div>
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+                <button class="pswp__button pswp__button--share" title="Share"></button>
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+                <!-- Preloader demo http://codepen.io/dimsemenov/pen/yyBWoR -->
+                <!-- element will get class pswp__preloader--active when preloader is running -->
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                      <div class="pswp__preloader__cut">
+                        <div class="pswp__preloader__donut"></div>
+                      </div>
+                    </div>
+                </div>
+            </div>
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div> 
+            </div>
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+        </div>
+    </div>
 </div>
 
 
 
-    <script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
-<!-- Footer -->
-<footer>
-  <div class="container">
-    <div class="row">
-      <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
-        <p class="copyright text-muted">
-          Theme By <a target="_blank" href="https://github.com/high-cold">High-Cold.</a>
-          Inspired By <a target="_blank" href="https://github.com/klugjo/hexo-theme-clean-blog">Clean Blog.</a>
-        <p class="copyright text-muted">
-          Powered By <a target="_blank" href="https://hexo.io/">Hexo.</a>
-        </p>
-		<span id="busuanzi_container_site_pv">
-		  本站总访问量 <span id="busuanzi_value_site_pv"></span> 次
-		</span>
-      </div>
-    </div>
-  </div>
-</footer>
 
-
-    <!-- After Footer Scripts -->
-<script src="/js/highlight.pack.js"></script>
-<script>
-  document.addEventListener("DOMContentLoaded", function(event) {
-    var codeBlocks = Array.prototype.slice.call(document.getElementsByTagName('pre'))
-    codeBlocks.forEach(function(block, index) {
-      hljs.highlightBlock(block);
-    });
-  });
-</script><!-- hexo-inject:begin --><!-- hexo-inject:end -->
-
-  </body>
 </html>
-
